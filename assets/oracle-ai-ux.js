@@ -4,8 +4,10 @@
 
   const cleanOldError = () => {
     document.querySelectorAll('#chatLog .bubble.assistant').forEach(node => {
-      if (/could not reach the language service|OPENAI_API_KEY/i.test(node.textContent || '')) {
-        node.textContent = message;
+      if (/could not reach the language service|OPENAI_API_KEY/i.test(node.textContent || '')) node.textContent = message;
+      if (window.oracleCitations && !node.dataset.citationsRendered && /\[\[cite:[0-9a-fA-F-]{36}\]\]/.test(node.textContent || '')) {
+        node.dataset.citationsRendered = '1';
+        window.oracleCitations.renderCitations(node);
       }
     });
   };
