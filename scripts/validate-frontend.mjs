@@ -1,8 +1,7 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 
 const root = new URL('../', import.meta.url);
-const read = (path) =>
-  readFileSync(new URL(path, root), 'utf8');
+const read = (path) => readFileSync(new URL(path, root), 'utf8');
 
 const requiredFiles = [
   'index.html',
@@ -108,4 +107,6 @@ for (const [content, expected, label] of assertions) {
   }
 }
 
-console.log(`Frontend validation passed: ${requiredFiles.length} required files and ${assertions.length} feature checks.`);
+console.log(
+  `Frontend validation passed: ${requiredFiles.length} required files and ${assertions.length} feature checks.`,
+);
