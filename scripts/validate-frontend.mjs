@@ -44,6 +44,7 @@ const requiredModules = [
 
 for (const file of requiredFiles) {
   const url = new URL(file, root);
+
   if (!existsSync(url)) {
     throw new Error(`Missing required frontend file: ${file}`);
   }
@@ -84,7 +85,7 @@ const assertions = [
   [admin, 'oracle-library', 'Library storage bucket'],
   [corpus, 'CORPUS_ENDPOINT', 'corpus endpoint'],
   [citations, 'get_citation_record', 'citation lookup'],
-  [citations, '[[cite:', 'citation marker support'],
+  [citations, 'renderCitations', 'citation rendering'],
   [records, 'oracleTextPages', 'text record API'],
   [workspace, 'research_projects', 'workspace projects'],
   [workspace, 'bookmarks', 'workspace bookmarks'],
@@ -102,6 +103,7 @@ const assertions = [
 
 for (const [content, expected, label] of assertions) {
   const matches = expected instanceof RegExp ? expected.test(content) : content.includes(expected);
+
   if (!matches) {
     throw new Error(`Frontend validation failed: ${label}`);
   }
