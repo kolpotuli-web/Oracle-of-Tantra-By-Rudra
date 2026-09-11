@@ -40,7 +40,7 @@ jobs:
           node --check assets/oracle-corpus.js
           node --check assets/oracle-citations.js
           node --check assets/oracle-ai-ux.js
-          node --check assets/oracle-text-pages.js
+          node --check assets/oracle-text-records.js
           node --check assets/oracle-workspace.js
           node --check assets/oracle-accessibility.js
           node --check assets/oracle-navigation.js
@@ -60,7 +60,7 @@ jobs:
           test -s assets/oracle-corpus.js
           test -s assets/oracle-citations.js
           test -s assets/oracle-ai-ux.js
-          test -s assets/oracle-text-pages.js
+          test -s assets/oracle-text-records.js
           test -s assets/oracle-workspace.js
           test -s assets/oracle-accessibility.js
           test -s assets/oracle-navigation.js
@@ -78,7 +78,7 @@ jobs:
           grep -q 'oracle-corpus.js' assets/oracle-assets.js
           grep -q 'oracle-citations.js' assets/oracle-assets.js
           grep -q 'oracle-ai-ux.js' assets/oracle-assets.js
-          grep -q 'oracle-text-pages.js' assets/oracle-assets.js
+          grep -q 'oracle-text-records.js' assets/oracle-assets.js
           grep -q 'oracle-workspace.js' assets/oracle-assets.js
           grep -q 'oracle-accessibility.js' assets/oracle-assets.js
           grep -q 'oracle-navigation.js' assets/oracle-assets.js
@@ -93,7 +93,7 @@ jobs:
           grep -q 'CORPUS_ENDPOINT' assets/oracle-assets.js
           grep -q 'get_citation_record' assets/oracle-citations.js
           grep -q '\[\[cite:' assets/oracle-citations.js
-          grep -q 'oracleTextPages' assets/oracle-text-pages.js
+          grep -q 'oracleTextPages' assets/oracle-text-records.js
           grep -q 'research_projects' assets/oracle-workspace.js
           grep -q 'bookmarks' assets/oracle-workspace.js
           grep -q 'conversations' assets/oracle-workspace.js
