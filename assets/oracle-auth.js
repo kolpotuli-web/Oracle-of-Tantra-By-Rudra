@@ -30,14 +30,12 @@ async function profileSync(user) {
     user.email?.split('@')[0] ||
     'Researcher';
   const lang = localStorage.getItem('oracleLang') || 'en';
-  await supabase
-    .from('profiles')
-    .upsert({
-      id: user.id,
-      display_name: name,
-      preferred_language: lang,
-      updated_at: new Date().toISOString(),
-    });
+  await supabase.from('profiles').upsert({
+    id: user.id,
+    display_name: name,
+    preferred_language: lang,
+    updated_at: new Date().toISOString(),
+  });
 }
 async function syncLocalNotes(user) {
   const local = JSON.parse(localStorage.getItem('oracleNotes') || '[]');
@@ -171,14 +169,12 @@ async function savePrefs() {
   if (!user) return;
   const name = $('authDisplayName').value.trim() || 'Researcher';
   const lang = $('authLanguage').value;
-  const { error } = await supabase
-    .from('profiles')
-    .upsert({
-      id: user.id,
-      display_name: name,
-      preferred_language: lang,
-      updated_at: new Date().toISOString(),
-    });
+  const { error } = await supabase.from('profiles').upsert({
+    id: user.id,
+    display_name: name,
+    preferred_language: lang,
+    updated_at: new Date().toISOString(),
+  });
   if (error) return message(error.message, true);
   localStorage.setItem('oracleName', name);
   localStorage.setItem('oracleLang', lang);

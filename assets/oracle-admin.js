@@ -69,12 +69,10 @@ async function saveLibraryItem() {
   if (file) {
     const safe = file.name.replace(/[^a-zA-Z0-9._-]+/g, '-');
     storage_path = `${crypto.randomUUID()}-${safe}`;
-    const up = await supabase.storage
-      .from('oracle-library')
-      .upload(storage_path, file, {
-        upsert: false,
-        contentType: file.type || 'application/octet-stream',
-      });
+    const up = await supabase.storage.from('oracle-library').upload(storage_path, file, {
+      upsert: false,
+      contentType: file.type || 'application/octet-stream',
+    });
     if (up.error) {
       alert(up.error.message);
       return;
