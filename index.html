@@ -1,370 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Oracle of Tantra</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Marked.js for parsing AI's markdown responses -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        esoteric: {
-                            bg: '#0f172a',
-                            panel: '#1e293b',
-                            primary: '#d97706',
-                            primaryHover: '#b45309',
-                            text: '#f8fafc',
-                            textMuted: '#94a3b8'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-        .markdown-body p { margin-bottom: 0.75em; }
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 { font-weight: bold; margin-top: 1em; margin-bottom: 0.5em; color: #fbbf24; }
-        .markdown-body ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 0.75em; }
-        .markdown-body ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 0.75em; }
-        .markdown-body strong { color: #fbbf24; font-weight: 600; }
-        .markdown-body a { color: #60a5fa; text-decoration: underline; }
-        
-        @keyframes pulse-red {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-        .mic-listening {
-            animation: pulse-red 1.5s infinite;
-            color: #ef4444 !important;
-        }
-        
-        .dot-flashing {
-            position: relative;
-            width: 8px;
-            height: 8px;
-            border-radius: 5px;
-            background-color: #fbbf24;
-            color: #fbbf24;
-            animation: dot-flashing 1s infinite linear alternate;
-            animation-delay: 0.5s;
-        }
-        .dot-flashing::before, .dot-flashing::after {
-            content: '';
-            display: inline-block;
-            position: absolute;
-            top: 0;
-            width: 8px;
-            height: 8px;
-            border-radius: 5px;
-            background-color: #fbbf24;
-            color: #fbbf24;
-            animation: dot-flashing 1s infinite alternate;
-        }
-        .dot-flashing::before { left: -12px; animation-delay: 0s; }
-        .dot-flashing::after { left: 12px; animation-delay: 1s; }
-
-        @keyframes dot-flashing {
-            0% { background-color: #fbbf24; }
-            50%, 100% { background-color: rgba(251, 191, 36, 0.2); }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="The Oracle of Tantra — a scholarly conversational guide to Tantra and related esoteric traditions.">
+  <title>Oracle of Tantra — By Rudra</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.3/dist/purify.min.js"></script>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:#090d16;color:#eef2f7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .app-bg{background:radial-gradient(circle at 50% -10%,rgba(180,110,20,.13),transparent 36%),#090d16}.glass{background:rgba(17,24,39,.82);backdrop-filter:blur(16px)}
+    .markdown-body{line-height:1.75}.markdown-body p{margin:.55rem 0}.markdown-body h1,.markdown-body h2,.markdown-body h3{color:#fbbf24;font-weight:700;margin:1rem 0 .45rem}.markdown-body ul,.markdown-body ol{padding-left:1.4rem;margin:.5rem 0}.markdown-body li{margin:.2rem 0}.markdown-body strong{color:#f8c65a}.markdown-body code{background:#0b1220;padding:.12rem .35rem;border-radius:.3rem}.markdown-body blockquote{border-left:2px solid #b7791f;padding-left:1rem;color:#aab4c2}
+    .dot{width:7px;height:7px;border-radius:50%;background:#fbbf24;animation:blink 1s infinite alternate}.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}@keyframes blink{from{opacity:.25;transform:translateY(0)}to{opacity:1;transform:translateY(-3px)}}
+    .mic-listening{color:#ef4444!important;box-shadow:0 0 0 6px rgba(239,68,68,.08)}
+    .fade-in{animation:fade .25s ease-out}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden">
-
-    <!-- Header -->
-    <header class="bg-esoteric-panel shadow-md py-4 px-6 flex flex-col sm:flex-row items-center justify-between z-10 shrink-0 border-b border-slate-700">
-        <div class="flex items-center gap-3 mb-4 sm:mb-0">
-            <div class="bg-esoteric-primary p-2 rounded-full text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-            </div>
-            <div>
-                <h1 class="text-xl font-bold text-amber-500 tracking-wider">The Oracle of Tantra</h1>
-                <p class="text-xs text-esoteric-textMuted">By Rudra</p>
-            </div>
+<body class="app-bg h-full overflow-hidden">
+<div class="h-full flex flex-col">
+  <header class="glass border-b border-white/10 shrink-0">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-full bg-amber-600/20 border border-amber-500/30 grid place-items-center text-amber-400 shrink-0" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
-
-        <!-- Language Toggle -->
-        <div class="bg-slate-900 rounded-lg p-1 border border-slate-700 flex text-sm shadow-inner">
-            <button id="lang-en" onclick="setLanguage('en')" class="px-4 py-1.5 rounded-md transition-colors bg-esoteric-primary text-white shadow-sm font-medium">English</button>
-            <button id="lang-bn" onclick="setLanguage('bn')" class="px-4 py-1.5 rounded-md transition-colors text-slate-400 hover:text-white font-medium">বাংলা (Bengali)</button>
+        <div class="min-w-0"><h1 class="text-base sm:text-lg font-semibold tracking-wide truncate">The Oracle of Tantra</h1><p class="text-[11px] text-slate-500">A research-oriented project by Rudra</p></div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="clear-btn" class="hidden sm:inline-flex text-xs px-3 py-2 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 transition" type="button">New conversation</button>
+        <div class="flex rounded-lg bg-black/30 border border-white/10 p-1 text-xs">
+          <button id="lang-en" type="button" class="px-3 py-1.5 rounded-md bg-amber-600 text-white">English</button>
+          <button id="lang-bn" type="button" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white">বাংলা</button>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <!-- Chat Container -->
-    <main id="chat-container" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 relative flex flex-col scroll-smooth">
-        <div class="flex flex-col gap-1 items-start w-full max-w-3xl mx-auto">
-            <div class="bg-esoteric-panel border border-slate-700 rounded-2xl rounded-tl-sm px-5 py-4 shadow-sm text-sm sm:text-base text-slate-200">
-                <p>Welcome, seeker.I possess encyclopedic knowledge of global esoteric traditions: Indian Tantra, Tibetan Vajrayana, Daoist alchemy, Quimbanda, and Hoodoo.</p>
-                <p class="mt-2 text-amber-500 font-semibold">Select your language above and ask your question. </p>
-            </div>
+  <main id="chat" class="flex-1 overflow-y-auto px-4 py-7 sm:px-6 scroll-smooth">
+    <div id="messages" class="max-w-3xl mx-auto space-y-5">
+      <section id="welcome" class="fade-in pt-8 sm:pt-16 text-center">
+        <div class="mx-auto mb-5 w-16 h-16 rounded-full border border-amber-500/25 bg-amber-500/5 grid place-items-center text-amber-400">
+          <span class="text-2xl">◈</span>
         </div>
-
-        <!-- Loading Indicator moved INSIDE the Chat Container -->
-        <div id="loading-indicator" class="hidden w-full max-w-3xl mx-auto">
-            <div class="flex items-center gap-3 bg-esoteric-panel border border-slate-700 rounded-2xl rounded-tl-sm px-5 py-4 w-24">
-                <div class="dot-flashing mx-auto"></div>
-            </div>
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Enter the archive.</h2>
+        <p id="welcome-copy" class="mt-3 text-sm sm:text-base text-slate-400 max-w-xl mx-auto">Ask about Tantra, Vajrayana, Śākta traditions, texts, concepts, history, or connections between esoteric traditions.</p>
+        <div class="mt-7 grid sm:grid-cols-3 gap-2 text-left">
+          <button class="suggestion rounded-xl border border-white/10 bg-white/[.025] p-3 hover:bg-white/[.05] transition" data-prompt="Explain the historical meaning of Kaula Tantra and distinguish it from modern popular interpretations."><span class="text-amber-400">Kaula</span><span class="block text-xs text-slate-500 mt-1">History & interpretation</span></button>
+          <button class="suggestion rounded-xl border border-white/10 bg-white/[.025] p-3 hover:bg-white/[.05] transition" data-prompt="What is the relationship between Indian Tantra and Buddhist Vajrayana? Explain carefully without collapsing the traditions together."><span class="text-amber-400">Vajrayana</span><span class="block text-xs text-slate-500 mt-1">Compare traditions</span></button>
+          <button class="suggestion rounded-xl border border-white/10 bg-white/[.025] p-3 hover:bg-white/[.05] transition" data-prompt="Recommend primary and scholarly secondary sources for beginning serious study of Śākta Tantra."><span class="text-amber-400">Sources</span><span class="block text-xs text-slate-500 mt-1">Build a reading path</span></button>
         </div>
-    </main>
+      </section>
+    </div>
+  </main>
 
-    <!-- Input Area -->
-    <footer class="bg-esoteric-panel p-4 border-t border-slate-700 shrink-0">
-        <div class="max-w-3xl mx-auto relative flex items-end gap-2 bg-slate-900 rounded-xl border border-slate-600 focus-within:border-amber-500 transition-colors p-2 shadow-inner">
-            
-            <textarea id="user-input" rows="1" class="w-full bg-transparent text-white placeholder-slate-400 resize-none outline-none py-2 px-3 max-h-32 overflow-y-auto" placeholder="Ask about rituals, connections, or history..." oninput="autoGrow(this)" onkeydown="handleKeyPress(event)"></textarea>
-            
-            <div class="flex items-center gap-1 pb-1 pr-1 shrink-0">
-                <button id="mic-btn" onclick="toggleMic()" class="p-2 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-slate-700" title="Voice Typing">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                        <line x1="12" x2="12" y1="19" y2="22"></line>
-                    </svg>
-                </button>
-                <button id="send-btn" onclick="sendMessage()" class="p-2 bg-esoteric-primary hover:bg-esoteric-primaryHover text-white transition-colors rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="22" x2="11" y1="2" y2="13"></line>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="max-w-3xl mx-auto mt-2 text-center text-xs text-slate-500">
-            Powered by Public Open AI Networks. No API key required.
-        </div>
-    </footer>
-
-    <!-- Application Logic -->
-    <script>
-        const modelUrl = 'https://text.pollinations.ai/';
-        
-        const systemPrompt = `You are an elite, highly academic researcher of esoteric, occult, and magical traditions. You possess profound, encyclopedic knowledge of:
-        1. Indian Tantra (Vamachara, Dakshinachara, Aghora, Sri Vidya).
-        2. Pan-Asian Tantric & Esoteric Traditions (Tibetan Vajrayana, Daoist Neidan, Japanese Mikkyo).
-        3. Brazilian magical traditions (Quimbanda, Umbanda) and African Diasporic Traditions (Vodou, Palo Mayombe).
-        4. The historical and energetic syncretism and connections between these paths.
-        
-        Your tone must be deeply scholarly, respectful, and objective.
-        
-        CRITICAL RULE: Always answer ENTIRELY in the language the user requests in their prompt. Mention historical texts or sources in your response naturally.`;
-
-        let currentLanguage = 'en'; 
-        let chatHistory = [];
-        let isWaitingForResponse = false;
-        let isListening = false;
-        let recognition = null;
-
-        const chatContainer = document.getElementById('chat-container');
-        const userInput = document.getElementById('user-input');
-        const loadingIndicator = document.getElementById('loading-indicator');
-        const sendBtn = document.getElementById('send-btn');
-        const micBtn = document.getElementById('mic-btn');
-        const langEnBtn = document.getElementById('lang-en');
-        const langBnBtn = document.getElementById('lang-bn');
-
-        // Safe Initialization of Speech API
-        try {
-            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (SpeechRec) {
-                recognition = new SpeechRec();
-                recognition.continuous = false;
-                recognition.interimResults = true;
-                recognition.lang = 'en-US'; 
-
-                recognition.onresult = (event) => {
-                    let finalTranscript = '';
-                    for (let i = event.resultIndex; i < event.results.length; ++i) {
-                        if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript;
-                    }
-                    if (finalTranscript) {
-                        const currentVal = userInput.value;
-                        userInput.value = currentVal + (currentVal.length > 0 && !currentVal.endsWith(' ') ? ' ' : '') + finalTranscript;
-                        autoGrow(userInput);
-                    }
-                };
-                recognition.onstart = () => { isListening = true; micBtn.classList.add('mic-listening'); };
-                recognition.onend = () => { isListening = false; micBtn.classList.remove('mic-listening'); };
-                recognition.onerror = () => { isListening = false; micBtn.classList.remove('mic-listening'); };
-            } else {
-                if (micBtn) micBtn.style.display = 'none';
-            }
-        } catch (e) {
-            console.warn("Speech API could not be initialized.", e);
-            if (micBtn) micBtn.style.display = 'none';
-        }
-
-        // Failsafe Markdown Parser
-        function safeParseMarkdown(text) {
-            try {
-                if (typeof marked !== 'undefined') {
-                    return marked.parse(text);
-                }
-            } catch (e) {
-                console.warn("Marked.js failed, using fallback parser");
-            }
-            // Fallback if the CDN is blocked
-            let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            html = html.replace(/\n\n/g, '<br><br>');
-            html = html.replace(/\n/g, '<br>');
-            return html;
-        }
-
-        function autoGrow(element) {
-            element.style.height = "auto";
-            element.style.height = (element.scrollHeight) + "px";
-            if (element.value === '') element.style.height = "auto";
-        }
-
-        function handleKeyPress(event) {
-            if (event.isComposing || event.keyCode === 229) return;
-            
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                if (userInput.value.trim() !== '') {
-                    sendMessage();
-                }
-            }
-        }
-
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            if (recognition) recognition.lang = lang === 'bn' ? 'bn-IN' : 'en-US';
-
-            if (lang === 'en') {
-                langEnBtn.className = "px-4 py-1.5 rounded-md transition-colors bg-esoteric-primary text-white shadow-sm font-medium";
-                langBnBtn.className = "px-4 py-1.5 rounded-md transition-colors text-slate-400 hover:text-white font-medium";
-                userInput.placeholder = "Ask about rituals, connections, or history...";
-            } else {
-                langBnBtn.className = "px-4 py-1.5 rounded-md transition-colors bg-esoteric-primary text-white shadow-sm font-medium";
-                langEnBtn.className = "px-4 py-1.5 rounded-md transition-colors text-slate-400 hover:text-white font-medium";
-                userInput.placeholder = "তন্ত্র, আচার বা ইতিহাস সম্পর্কে জিজ্ঞাসা করুন...";
-            }
-        }
-
-        function toggleMic() {
-            if (!recognition) return;
-            isListening ? recognition.stop() : recognition.start();
-        }
-
-        function renderMessage(role, text) {
-            try {
-                const wrapper = document.createElement('div');
-                wrapper.className = `flex flex-col gap-1 w-full max-w-3xl mx-auto ${role === 'user' ? 'items-end' : 'items-start'}`;
-
-                const bubble = document.createElement('div');
-                if (role === 'user') {
-                    bubble.className = "bg-amber-600/20 border border-amber-500/30 rounded-2xl rounded-tr-sm px-5 py-3 text-sm sm:text-base text-amber-50 max-w-[85%]";
-                    bubble.innerText = text; 
-                } else {
-                    bubble.className = "bg-esoteric-panel border border-slate-700 rounded-2xl rounded-tl-sm px-5 py-4 text-sm sm:text-base text-slate-200 max-w-full w-full markdown-body overflow-x-auto shadow-sm";
-                    bubble.innerHTML = safeParseMarkdown(text);
-                }
-                
-                wrapper.appendChild(bubble);
-                chatContainer.insertBefore(wrapper, loadingIndicator);
-                scrollToBottom();
-            } catch (e) {
-                console.error("Error rendering message:", e);
-            }
-        }
-
-        function scrollToBottom() {
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        async function sendMessage() {
-            const text = userInput.value.trim();
-            if (!text || isWaitingForResponse) return;
-
-            // 1. Lock UI
-            isWaitingForResponse = true;
-            sendBtn.disabled = true;
-            userInput.disabled = true;
-            loadingIndicator.classList.remove('hidden');
-
-            // 2. Stop Mic safely
-            try {
-                if (isListening && recognition) recognition.stop();
-            } catch(e) {}
-
-            // 3. Render user message
-            renderMessage('user', text);
-            userInput.value = '';
-            userInput.style.height = "auto";
-            scrollToBottom();
-
-            // 4. API Logic inside Try-Catch to prevent permanent freeze
-            try {
-                const langInstruction = currentLanguage === 'bn' 
-                    ? "\n\n[MANDATORY: You MUST answer entirely in scholarly BENGALI language.]"
-                    : "\n\n[MANDATORY: You MUST reply in English.]";
-
-                const payload = {
-                    messages: [
-                        { role: "system", content: systemPrompt },
-                        ...chatHistory,
-                        { role: "user", content: text + langInstruction }
-                    ],
-                    model: "openai" 
-                };
-
-                const response = await fetch(modelUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (!response.ok) throw new Error(`Server returned status ${response.status}`);
-                
-                const replyText = await response.text(); 
-                
-                // 5. Update history
-                chatHistory.push({ role: "user", content: text });
-                chatHistory.push({ role: "assistant", content: replyText });
-                if (chatHistory.length > 10) chatHistory = chatHistory.slice(chatHistory.length - 10);
-
-                // 6. Render AI message
-                renderMessage('model', replyText);
-
-            } catch (error) {
-                console.error("Chat Error:", error);
-                // Print the error directly to the chat so you can see it!
-                renderMessage('model', `**Connection Error:** Could not reach the network. (${error.message}). Please check your internet connection or try again.`);
-            } finally {
-                // 7. ALWAYS UNLOCK UI, EVEN IF IT CRASHES
-                isWaitingForResponse = false;
-                sendBtn.disabled = false;
-                userInput.disabled = false;
-                loadingIndicator.classList.add('hidden');
-                userInput.focus();
-                scrollToBottom();
-            }
-        }
-    </script>
+  <footer class="shrink-0 border-t border-white/10 glass px-4 pt-3 pb-3 sm:px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-end gap-2 rounded-2xl border border-white/10 bg-black/30 p-2 focus-within:border-amber-500/50 transition">
+        <textarea id="input" rows="1" maxlength="12000" class="flex-1 bg-transparent outline-none resize-none px-3 py-2 text-sm sm:text-base placeholder:text-slate-600 max-h-40" placeholder="Ask a question about Tantra…" aria-label="Your question"></textarea>
+        <button id="mic" type="button" class="w-10 h-10 rounded-xl grid place-items-center text-slate-500 hover:text-white hover:bg-white/5 transition" title="Voice typing" aria-label="Voice typing">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/></svg>
+        </button>
+        <button id="send" type="button" class="w-10 h-10 rounded-xl bg-amber-600 hover:bg-amber-500 text-white grid place-items-center transition disabled:opacity-40" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        </button>
+      </div>
+      <div class="flex items-center justify-between mt-2 px-1 text-[10px] text-slate-600"><span id="status">Ready</span><span>Responses are AI-generated; verify important historical claims.</span></div>
+    </div>
+  </footer>
+</div>
+<script>
+const API='/api/chat';
+const state={language:localStorage.getItem('oracle-language')||'en',messages:JSON.parse(localStorage.getItem('oracle-history')||'[]'),waiting:false,listening:false,recognition:null};
+const $=id=>document.getElementById(id); const input=$('input'), messages=$('messages'), welcome=$('welcome'), status=$('status');
+function save(){localStorage.setItem('oracle-language',state.language);localStorage.setItem('oracle-history',JSON.stringify(state.messages.slice(-20)));}
+function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function renderMarkdown(text){try{const html=marked.parse(text,{breaks:true});return DOMPurify.sanitize(html,{USE_PROFILES:{html:true}})}catch{return escapeHtml(text).replace(/\n/g,'<br>')}}
+function bubble(role,text){welcome.classList.add('hidden');const row=document.createElement('div');row.className=`fade-in flex ${role==='user'?'justify-end':'justify-start'}`;const box=document.createElement('div');box.className=role==='user'?'max-w-[88%] rounded-2xl rounded-tr-sm bg-amber-600/15 border border-amber-500/20 px-4 py-3 text-sm text-amber-50':'w-full rounded-2xl rounded-tl-sm bg-slate-900/70 border border-white/10 px-4 py-4 text-sm text-slate-200 markdown-body';box[role==='user'?'textContent':'innerHTML']=role==='user'?text:renderMarkdown(text);row.appendChild(box);messages.appendChild(row);$('chat').scrollTop=$('chat').scrollHeight;return row}
+function restore(){for(const m of state.messages) bubble(m.role,m.content);if(state.messages.length) welcome.classList.add('hidden')}
+function setLanguage(lang){state.language=lang;save();$('lang-en').className=lang==='en'?'px-3 py-1.5 rounded-md bg-amber-600 text-white':'px-3 py-1.5 rounded-md text-slate-400 hover:text-white';$('lang-bn').className=lang==='bn'?'px-3 py-1.5 rounded-md bg-amber-600 text-white':'px-3 py-1.5 rounded-md text-slate-400 hover:text-white';input.placeholder=lang==='bn'?'তন্ত্র সম্পর্কে একটি প্রশ্ন করুন…':'Ask a question about Tantra…';$('welcome-copy').textContent=lang==='bn'?'তন্ত্র, বজ্রযান, শাক্ত ঐতিহ্য, গ্রন্থ, ধারণা, ইতিহাস বা বিভিন্ন গুপ্ত ঐতিহ্যের সম্পর্ক সম্পর্কে জিজ্ঞাসা করুন।':'Ask about Tantra, Vajrayana, Śākta traditions, texts, concepts, history, or connections between esoteric traditions.';if(state.recognition)state.recognition.lang=lang==='bn'?'bn-IN':'en-US'}
+function grow(){input.style.height='auto';input.style.height=Math.min(input.scrollHeight,160)+'px'}
+function loading(){const row=document.createElement('div');row.id='loading';row.className='fade-in flex';row.innerHTML='<div class="rounded-2xl rounded-tl-sm bg-slate-900/70 border border-white/10 px-5 py-4 flex gap-1"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>';messages.appendChild(row);$('chat').scrollTop=$('chat').scrollHeight;return row}
+async function send(){const text=input.value.trim();if(!text||state.waiting)return;state.waiting=true;$('send').disabled=true;input.disabled=true;status.textContent=state.language==='bn'?'ভাবনা চলছে…':'Consulting the archive…';bubble('user',text);input.value='';grow();const load=loading();try{const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({language:state.language,messages:[...state.messages,{role:'user',content:text}].slice(-20)})});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.error||`Request failed (${res.status})`);load.remove();bubble('assistant',data.reply||'No response was returned.');state.messages.push({role:'user',content:text},{role:'assistant',content:data.reply||''});state.messages=state.messages.slice(-20);save();status.textContent=state.language==='bn'?'প্রস্তুত':'Ready'}catch(err){load.remove();bubble('assistant',`**Connection error**\n\n${err.message}\n\nPlease try again.`);status.textContent='Connection error'}finally{state.waiting=false;$('send').disabled=false;input.disabled=false;input.focus()}}
+function clearChat(){state.messages=[];save();messages.innerHTML='';messages.appendChild(welcome);welcome.classList.remove('hidden');status.textContent='New conversation'}
+$('send').onclick=send;$('clear-btn').onclick=clearChat;input.oninput=grow;input.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};$('lang-en').onclick=()=>setLanguage('en');$('lang-bn').onclick=()=>setLanguage('bn');document.querySelectorAll('.suggestion').forEach(b=>b.onclick=()=>{input.value=b.dataset.prompt;grow();input.focus()});
+try{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(SR){state.recognition=new SR();state.recognition.continuous=false;state.recognition.interimResults=false;state.recognition.lang=state.language==='bn'?'bn-IN':'en-US';state.recognition.onstart=()=>{$('mic').classList.add('mic-listening');state.listening=true;status.textContent='Listening…'};state.recognition.onend=()=>{$('mic').classList.remove('mic-listening');state.listening=false;status.textContent='Ready'};state.recognition.onresult=e=>{const t=e.results[0][0].transcript;input.value+=(input.value?' ':'')+t;grow()};state.recognition.onerror=()=>status.textContent='Voice input unavailable';$('mic').onclick=()=>state.listening?state.recognition.stop():state.recognition.start()}else $('mic').style.display='none'}catch{$('mic').style.display='none'}
+setLanguage(state.language);restore();
+</script>
 </body>
 </html>
