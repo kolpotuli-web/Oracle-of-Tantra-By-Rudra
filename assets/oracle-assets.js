@@ -24,20 +24,25 @@ window.ORACLE_ASSETS = Object.freeze({
   const nativeFetch = window.fetch.bind(window);
   window.fetch = (input, init) => {
     const url = typeof input === 'string' ? input : input?.url || '';
-    if (/\/api\/chat(?:\?|$)/.test(url)) {
-      return nativeFetch(window.ORACLE_ASSETS.AI_ENDPOINT, init);
-    }
+    if (/\/api\/chat(?:\?|$)/.test(url)) return nativeFetch(window.ORACLE_ASSETS.AI_ENDPOINT, init);
     return nativeFetch(input, init);
   };
 
-  /* Keep the Oracle chat from obscuring the research framework on desktop. */
   const style = document.createElement('style');
   style.textContent = `
-    body.oracle-chat-open #viewResearch.open .workspaceCard { padding-bottom: 560px; }
-    body.oracle-chat-open #viewResearch.open .twoCol { grid-template-columns: 1fr; }
+    body.oracle-chat-open #viewResearch.open { padding-right:min(600px,40vw); }
+    body.oracle-chat-open #viewResearch.open .workspaceCard { padding-bottom:120px; }
+    body.oracle-chat-open #viewResearch.open .twoCol { grid-template-columns:1fr; }
     body.oracle-chat-open .chat { width:min(560px,calc(100vw - 36px)); right:18px; bottom:18px; height:min(500px,55vh); }
-    @media (max-width:900px){ body.oracle-chat-open #viewResearch.open .workspaceCard{padding-bottom:500px} }
-    @media (max-width:600px){ body.oracle-chat-open #viewResearch.open .workspaceCard{padding-bottom:20px} body.oracle-chat-open .chat{height:78vh;right:8px;bottom:8px;width:calc(100vw - 16px)} }
+    @media (max-width:900px){
+      body.oracle-chat-open #viewResearch.open { padding-right:460px; }
+      body.oracle-chat-open .chat { width:420px; }
+    }
+    @media (max-width:600px){
+      body.oracle-chat-open #viewResearch.open { padding-right:0; }
+      body.oracle-chat-open #viewResearch.open .workspaceCard{padding-bottom:20px}
+      body.oracle-chat-open .chat{height:78vh;right:8px;bottom:8px;width:calc(100vw - 16px)}
+    }
   `;
   document.head.appendChild(style);
 
@@ -46,14 +51,13 @@ window.ORACLE_ASSETS = Object.freeze({
   addEventListener('DOMContentLoaded', syncChatState, { once:true });
 })();
 
-/* Load persistent research, authentication, source registry, projects, bookmarks, and AI UX diagnostics. */
 addEventListener('DOMContentLoaded', () => {
   const modules = ['assets/oracle-data.js','assets/oracle-auth.js','assets/oracle-sources.js','assets/oracle-projects.js','assets/oracle-bookmarks.js','assets/oracle-ai-ux.js'];
   for (const src of modules) {
     if (document.querySelector(`script[src="${src}"]`)) continue;
     const script = document.createElement('script');
     script.type = 'module';
-    script.src = `${src}?v=3`;
+    script.src = `${src}?v=4`;
     document.body.appendChild(script);
   }
 }, { once:true });
