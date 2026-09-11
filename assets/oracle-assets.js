@@ -46,9 +46,9 @@ window.ORACLE_ASSETS = Object.freeze({
   addEventListener('DOMContentLoaded', syncChatState, { once:true });
 })();
 
-/* Load persistent research, authentication, and source registry modules after the document exists. */
+/* Load persistent research, authentication, source registry, projects, and bookmarks. */
 addEventListener('DOMContentLoaded', () => {
-  const modules = ['assets/oracle-data.js','assets/oracle-auth.js','assets/oracle-sources.js'];
+  const modules = ['assets/oracle-data.js','assets/oracle-auth.js','assets/oracle-sources.js','assets/oracle-projects.js','assets/oracle-bookmarks.js'];
   for (const src of modules) {
     if (document.querySelector(`script[src="${src}"]`)) continue;
     const script = document.createElement('script');
