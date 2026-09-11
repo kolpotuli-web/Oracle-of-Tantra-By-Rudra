@@ -6,8 +6,8 @@ window.ORACLE_ASSETS = Object.freeze({
   masterMobile: 'https://cdn.creativeclaw.co/u/486ee905/images/ca527432-87f0-46a9-b085-1a6d2c951dc9.png',
   oracle: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
   bookshelf: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
-  centralArch: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
-  objectsSprite: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
+  centralArch: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a9-b85f-b98dd483403b.png',
+  objectsSprite: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a9-b085-1a6d2c951dc9.png',
   AI_ENDPOINT: 'https://bvnkoglvpljizeogslmp.supabase.co/functions/v1/oracle-chat',
   local: {
     masterDesktop: 'assets/generated/oracle-tantra-master-desktop.png',
@@ -46,8 +46,15 @@ window.ORACLE_ASSETS = Object.freeze({
   addEventListener('DOMContentLoaded', syncChatState, { once:true });
 })();
 
-/* Load authentication after the document exists. */
+/* Load persistent research data before the authentication module. */
 addEventListener('DOMContentLoaded', () => {
+  if (!document.querySelector('script[src="assets/oracle-data.js"]')) {
+    const dataScript = document.createElement('script');
+    dataScript.type = 'module';
+    dataScript.src = 'assets/oracle-data.js';
+    document.body.appendChild(dataScript);
+  }
+
   if (!document.querySelector('script[src="assets/oracle-auth.js"]')) {
     const authScript = document.createElement('script');
     authScript.type = 'module';
