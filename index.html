@@ -1,80 +1,1246 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#17110d">
-<meta name="description" content="The Oracle of Tantra — a living research library for Tantra and related esoteric traditions.">
-<title>The Oracle of Tantra</title>
-<script src="assets/oracle-assets.js"></script>
-<style>
-:root{--ink:#241812;--deep:#17110d;--paper:#ead5aa;--paper2:#f3dfb6;--gold:#c49755;--red:#8d342c;--line:#6f482f;--muted:#765c47;--glass:rgba(32,21,15,.78);--shadow:0 18px 60px rgba(0,0,0,.42)}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--deep);color:var(--ink);font-family:Georgia,'Times New Roman',serif}body{overflow:hidden}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{position:relative;width:100vw;height:100vh;overflow:hidden;background:#19130f}.art{position:absolute;inset:0;background:#18120e center/cover no-repeat}.art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,10,7,.56),transparent 25%,transparent 74%,rgba(16,10,7,.28));pointer-events:none}.art:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,transparent 40%,rgba(0,0,0,.22));pointer-events:none}
-/* The painting is NEVER the interface. All selectable words, controls and labels below are DOM. */
-.chrome{position:absolute;inset:0;z-index:20;pointer-events:none}.chrome>*{pointer-events:auto}.brand{position:absolute;left:24px;top:20px;width:250px;padding:18px 20px;background:rgba(239,216,173,.94);border:1px solid #7b5134;box-shadow:var(--shadow);clip-path:polygon(0 3%,97% 0,100% 96%,3% 100%)}.brand .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}.brand h1{font-size:28px;line-height:1.05;font-weight:normal;margin:7px 0}.brand p{font-style:italic;margin:0;font-size:13px;color:#5d4737}.brand .mark{display:block;width:52px;border-top:1px solid var(--line);margin:11px 0 0}.topbar{position:absolute;top:18px;right:22px;display:flex;gap:8px;align-items:center}.searchBtn,.profileBtn,.langBtn{border:1px solid #765039;background:rgba(234,211,169,.94);color:var(--ink);border-radius:22px;padding:10px 15px;box-shadow:0 5px 20px rgba(0,0,0,.25)}.searchBtn{min-width:240px;text-align:left}.searchBtn:before{content:'⌕';font-size:19px;margin-right:8px}.profileBtn{min-width:118px}.rail{position:absolute;left:24px;top:235px;width:250px;padding:12px 10px;background:rgba(34,22,16,.72);border:1px solid rgba(224,191,136,.5);backdrop-filter:blur(3px)}.rail button{display:block;width:100%;border:0;border-bottom:1px solid rgba(234,211,169,.18);background:transparent;color:#f0d9ad;text-align:left;padding:12px 13px;letter-spacing:.08em}.rail button:hover,.rail button.active{background:rgba(234,211,169,.14);color:#fff0c9}.rail button.active:before{content:'◆ ';color:#bd704f}.bottom{position:absolute;left:24px;right:24px;bottom:16px;display:flex;justify-content:space-between;align-items:end}.languages{color:#f0d9ad;font-size:12px}.languages button{background:rgba(30,19,14,.76);border:1px solid rgba(234,211,169,.35);color:#f0d9ad;padding:8px 12px}.status{color:#f0d9ad;font-size:11px;letter-spacing:.06em;background:rgba(30,19,14,.7);border:1px solid rgba(234,211,169,.3);padding:8px 12px}.oracleCta{position:absolute;right:30px;bottom:22px}.oracleCta button{border:1px solid #765039;background:rgba(234,211,169,.95);color:var(--ink);padding:12px 20px;box-shadow:var(--shadow);font-size:15px}.hit{position:absolute;border:0;background:transparent;z-index:18}.oracleHit{left:30%;top:30%;width:28%;height:55%}.shelfHit{right:3%;top:13%;width:26%;height:62%}
-.drawer{position:absolute;z-index:50;top:0;bottom:0;width:min(680px,92vw);background:rgba(239,218,178,.985);border-left:1px solid #765039;border-right:1px solid #765039;box-shadow:var(--shadow);overflow:auto;transform:translateX(110%);transition:transform .28s ease}.drawer.open{transform:none}.drawer.right{right:0}.drawer.left{left:0;transform:translateX(-110%)}.drawer.left.open{transform:none}.drawerInner{padding:30px 32px 60px}.close{float:right;border:0;background:none;font-size:28px;color:var(--line)}.drawer h2{font-size:32px;font-weight:normal;margin:10px 0 6px}.kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}.rule{border:0;border-top:1px solid #a27c55;margin:20px 0}.field{margin:12px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px}.field input,.field textarea,.field select{width:100%;border:1px solid #896442;background:#f3dfb6;color:var(--ink);padding:10px}.field textarea{min-height:120px;resize:vertical}.primary{border:1px solid #70462e;background:#6f3128;color:#f7dfb1;padding:11px 15px}.secondary{border:1px solid #866143;background:transparent;color:var(--ink);padding:10px 14px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.bookGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.book{padding:15px;border:1px solid #997451;background:rgba(255,240,199,.45);min-height:120px}.book button{border:0;background:none;text-align:left;padding:0;width:100%;color:var(--ink)}.book strong{font-size:16px}.book small{display:block;color:var(--muted);margin-top:6px;line-height:1.4}.tag{display:inline-block;border:1px solid #a17b56;padding:3px 6px;margin:4px 4px 0 0;font-size:10px}.view{position:absolute;inset:0;z-index:25;background:rgba(28,18,13,.84);display:none;overflow:auto}.view.open{display:block}.workspace{max-width:1180px;margin:80px auto 50px;padding:0 22px}.workspaceCard{background:rgba(239,218,178,.97);border:1px solid #765039;box-shadow:var(--shadow);padding:28px}.workspaceHead{display:flex;justify-content:space-between;gap:20px;align-items:start}.workspaceHead h2{font-weight:normal;font-size:32px;margin:0 0 5px}.tabs{display:flex;gap:5px;flex-wrap:wrap;margin:20px 0}.tabs button{border:1px solid #8b6647;background:#ead2a7;padding:9px 12px}.tabs button.active{background:#71342b;color:#f8dfb0}.twoCol{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.list{border-top:1px solid #a27c55}.row{padding:14px 0;border-bottom:1px solid #b08b61}.row h3{font-weight:normal;margin:0 0 4px}.row p{margin:5px 0;color:#5d4737;line-height:1.5}.chat{position:fixed;right:20px;bottom:70px;width:min(560px,calc(100vw - 40px));height:min(700px,78vh);z-index:80;background:#f1dbad;border:1px solid #6e472f;box-shadow:0 20px 80px rgba(0,0,0,.55);display:none;flex-direction:column}.chat.open{display:flex}.chatHead{padding:15px 18px;border-bottom:1px solid #a27c55;display:flex;justify-content:space-between}.chatHead strong{font-weight:normal;font-size:19px}.chatLog{flex:1;overflow:auto;padding:18px}.bubble{max-width:88%;padding:12px 14px;margin:0 0 12px;border:1px solid #a37d57;line-height:1.55;white-space:pre-wrap}.bubble.user{margin-left:auto;background:#71342b;color:#f5dfb5;border-color:#71342b}.bubble.assistant{background:#f7e5bd}.chatComposer{border-top:1px solid #a27c55;padding:10px;display:flex;gap:8px}.chatComposer textarea{flex:1;min-height:48px;max-height:130px;resize:vertical;border:1px solid #896442;background:#f7e5bd;padding:9px}.chatComposer button{border:1px solid #70462e;background:#71342b;color:#f5dfb5;padding:0 15px}.notice{font-size:12px;color:#6d523d;padding:10px 18px;border-top:1px solid #a27c55}.modal{position:fixed;inset:0;z-index:100;background:rgba(18,11,8,.72);display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modalCard{width:min(520px,100%);max-height:88vh;overflow:auto;background:#f0d9ad;border:1px solid #765039;box-shadow:var(--shadow);padding:25px}.toast{position:fixed;z-index:120;left:50%;bottom:25px;transform:translateX(-50%);background:#21150f;color:#f3d9aa;border:1px solid #8b6343;padding:10px 16px;display:none}.toast.show{display:block}
-@media(max-width:900px){.brand{width:205px;left:14px;top:12px}.brand h1{font-size:23px}.rail{left:14px;top:190px;width:205px}.topbar{right:14px}.searchBtn{min-width:180px}.oracleCta{right:14px}.bottom{left:14px;right:14px}.twoCol{grid-template-columns:1fr}}
-@media(max-width:600px){body{overflow:hidden}.art{background-position:center center}.art:before{background:linear-gradient(180deg,rgba(16,10,7,.5),transparent 28%,transparent 68%,rgba(16,10,7,.55))}.brand{left:10px;top:10px;width:175px;padding:11px 13px}.brand h1{font-size:19px}.brand p{font-size:11px}.topbar{top:10px;right:10px}.searchBtn{width:42px;min-width:42px;padding:9px;font-size:0;border-radius:50%;text-align:center}.searchBtn:before{font-size:19px;margin:0}.profileBtn{min-width:0;width:42px;font-size:0;padding:9px;border-radius:50%}.profileBtn:before{content:'◉';font-size:15px}.rail{left:10px;top:auto;bottom:80px;width:165px;padding:5px}.rail button{font-size:11px;padding:8px}.oracleCta{left:50%;right:auto;bottom:20px;transform:translateX(-50%);white-space:nowrap}.bottom{bottom:8px}.languages,.status{display:none}.drawer{width:94vw}.drawerInner{padding:22px 18px 45px}.bookGrid{grid-template-columns:1fr}.workspace{margin:15px auto 30px;padding:0 10px}.workspaceCard{padding:18px}.workspaceHead{display:block}.workspaceHead h2{font-size:25px}.chat{right:8px;bottom:8px;width:calc(100vw - 16px);height:78vh}.chatLog{padding:12px}.chatComposer textarea{font-size:14px}.hit{display:none}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-</style>
-</head>
-<body>
-<main class="app" id="app">
-  <div class="art" id="art" aria-hidden="true"></div>
-  <div class="chrome">
-    <section class="brand" aria-label="The Oracle of Tantra brand"><div class="eyebrow">A living research library</div><h1>The Oracle<br>of Tantra</h1><span class="mark"></span><p>Texts, traditions, scholarship and questions.</p></section>
-    <div class="topbar"><button class="searchBtn" id="searchBtn">Search texts, concepts…</button><button class="profileBtn" id="profileBtn">Profile</button></div>
-    <nav class="rail" aria-label="Primary navigation">
-      <button class="active" data-view="home">Home</button><button data-view="library">Library</button><button data-view="research">Research</button><button data-view="journal">Journal</button><button data-view="profile">Profile</button>
-    </nav>
-    <div class="bottom"><div class="languages"><button id="langBtn">EN · বাংলা · हिन्दी · संस्कृत · 中文 · Español</button></div><div class="status" id="status">Guest researcher · local workspace</div></div>
-    <div class="oracleCta"><button id="askBtn">Ask the Oracle →</button></div>
-    <button class="hit oracleHit" id="oracleHit" aria-label="Ask the Oracle"></button><button class="hit shelfHit" id="shelfHit" aria-label="Open the library"></button>
-  </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#17110d" />
+    <meta
+      name="description"
+      content="The Oracle of Tantra — a living research library for Tantra and related esoteric traditions."
+    />
+    <title>The Oracle of Tantra</title>
+    <script src="assets/oracle-assets.js"></script>
+    <style>
+      :root {
+        --ink: #241812;
+        --deep: #17110d;
+        --paper: #ead5aa;
+        --paper2: #f3dfb6;
+        --gold: #c49755;
+        --red: #8d342c;
+        --line: #6f482f;
+        --muted: #765c47;
+        --glass: rgba(32, 21, 15, 0.78);
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--deep);
+        color: var(--ink);
+        font-family: Georgia, 'Times New Roman', serif;
+      }
+      body {
+        overflow: hidden;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .app {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: #19130f;
+      }
+      .art {
+        position: absolute;
+        inset: 0;
+        background: #18120e center/cover no-repeat;
+      }
+      .art:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(16, 10, 7, 0.56),
+          transparent 25%,
+          transparent 74%,
+          rgba(16, 10, 7, 0.28)
+        );
+        pointer-events: none;
+      }
+      .art:after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.22));
+        pointer-events: none;
+      }
+      /* The painting is NEVER the interface. All selectable words, controls and labels below are DOM. */
+      .chrome {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+      }
+      .chrome > * {
+        pointer-events: auto;
+      }
+      .brand {
+        position: absolute;
+        left: 24px;
+        top: 20px;
+        width: 250px;
+        padding: 18px 20px;
+        background: rgba(239, 216, 173, 0.94);
+        border: 1px solid #7b5134;
+        box-shadow: var(--shadow);
+        clip-path: polygon(0 3%, 97% 0, 100% 96%, 3% 100%);
+      }
+      .brand .eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--red);
+      }
+      .brand h1 {
+        font-size: 28px;
+        line-height: 1.05;
+        font-weight: normal;
+        margin: 7px 0;
+      }
+      .brand p {
+        font-style: italic;
+        margin: 0;
+        font-size: 13px;
+        color: #5d4737;
+      }
+      .brand .mark {
+        display: block;
+        width: 52px;
+        border-top: 1px solid var(--line);
+        margin: 11px 0 0;
+      }
+      .topbar {
+        position: absolute;
+        top: 18px;
+        right: 22px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .searchBtn,
+      .profileBtn,
+      .langBtn {
+        border: 1px solid #765039;
+        background: rgba(234, 211, 169, 0.94);
+        color: var(--ink);
+        border-radius: 22px;
+        padding: 10px 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+      }
+      .searchBtn {
+        min-width: 240px;
+        text-align: left;
+      }
+      .searchBtn:before {
+        content: '⌕';
+        font-size: 19px;
+        margin-right: 8px;
+      }
+      .profileBtn {
+        min-width: 118px;
+      }
+      .rail {
+        position: absolute;
+        left: 24px;
+        top: 235px;
+        width: 250px;
+        padding: 12px 10px;
+        background: rgba(34, 22, 16, 0.72);
+        border: 1px solid rgba(224, 191, 136, 0.5);
+        backdrop-filter: blur(3px);
+      }
+      .rail button {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid rgba(234, 211, 169, 0.18);
+        background: transparent;
+        color: #f0d9ad;
+        text-align: left;
+        padding: 12px 13px;
+        letter-spacing: 0.08em;
+      }
+      .rail button:hover,
+      .rail button.active {
+        background: rgba(234, 211, 169, 0.14);
+        color: #fff0c9;
+      }
+      .rail button.active:before {
+        content: '◆ ';
+        color: #bd704f;
+      }
+      .bottom {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+      }
+      .languages {
+        color: #f0d9ad;
+        font-size: 12px;
+      }
+      .languages button {
+        background: rgba(30, 19, 14, 0.76);
+        border: 1px solid rgba(234, 211, 169, 0.35);
+        color: #f0d9ad;
+        padding: 8px 12px;
+      }
+      .status {
+        color: #f0d9ad;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        background: rgba(30, 19, 14, 0.7);
+        border: 1px solid rgba(234, 211, 169, 0.3);
+        padding: 8px 12px;
+      }
+      .oracleCta {
+        position: absolute;
+        right: 30px;
+        bottom: 22px;
+      }
+      .oracleCta button {
+        border: 1px solid #765039;
+        background: rgba(234, 211, 169, 0.95);
+        color: var(--ink);
+        padding: 12px 20px;
+        box-shadow: var(--shadow);
+        font-size: 15px;
+      }
+      .hit {
+        position: absolute;
+        border: 0;
+        background: transparent;
+        z-index: 18;
+      }
+      .oracleHit {
+        left: 30%;
+        top: 30%;
+        width: 28%;
+        height: 55%;
+      }
+      .shelfHit {
+        right: 3%;
+        top: 13%;
+        width: 26%;
+        height: 62%;
+      }
+      .drawer {
+        position: absolute;
+        z-index: 50;
+        top: 0;
+        bottom: 0;
+        width: min(680px, 92vw);
+        background: rgba(239, 218, 178, 0.985);
+        border-left: 1px solid #765039;
+        border-right: 1px solid #765039;
+        box-shadow: var(--shadow);
+        overflow: auto;
+        transform: translateX(110%);
+        transition: transform 0.28s ease;
+      }
+      .drawer.open {
+        transform: none;
+      }
+      .drawer.right {
+        right: 0;
+      }
+      .drawer.left {
+        left: 0;
+        transform: translateX(-110%);
+      }
+      .drawer.left.open {
+        transform: none;
+      }
+      .drawerInner {
+        padding: 30px 32px 60px;
+      }
+      .close {
+        float: right;
+        border: 0;
+        background: none;
+        font-size: 28px;
+        color: var(--line);
+      }
+      .drawer h2 {
+        font-size: 32px;
+        font-weight: normal;
+        margin: 10px 0 6px;
+      }
+      .kicker {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--red);
+      }
+      .rule {
+        border: 0;
+        border-top: 1px solid #a27c55;
+        margin: 20px 0;
+      }
+      .field {
+        margin: 12px 0;
+      }
+      .field label {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 5px;
+      }
+      .field input,
+      .field textarea,
+      .field select {
+        width: 100%;
+        border: 1px solid #896442;
+        background: #f3dfb6;
+        color: var(--ink);
+        padding: 10px;
+      }
+      .field textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .primary {
+        border: 1px solid #70462e;
+        background: #6f3128;
+        color: #f7dfb1;
+        padding: 11px 15px;
+      }
+      .secondary {
+        border: 1px solid #866143;
+        background: transparent;
+        color: var(--ink);
+        padding: 10px 14px;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 15px;
+      }
+      .bookGrid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .book {
+        padding: 15px;
+        border: 1px solid #997451;
+        background: rgba(255, 240, 199, 0.45);
+        min-height: 120px;
+      }
+      .book button {
+        border: 0;
+        background: none;
+        text-align: left;
+        padding: 0;
+        width: 100%;
+        color: var(--ink);
+      }
+      .book strong {
+        font-size: 16px;
+      }
+      .book small {
+        display: block;
+        color: var(--muted);
+        margin-top: 6px;
+        line-height: 1.4;
+      }
+      .tag {
+        display: inline-block;
+        border: 1px solid #a17b56;
+        padding: 3px 6px;
+        margin: 4px 4px 0 0;
+        font-size: 10px;
+      }
+      .view {
+        position: absolute;
+        inset: 0;
+        z-index: 25;
+        background: rgba(28, 18, 13, 0.84);
+        display: none;
+        overflow: auto;
+      }
+      .view.open {
+        display: block;
+      }
+      .workspace {
+        max-width: 1180px;
+        margin: 80px auto 50px;
+        padding: 0 22px;
+      }
+      .workspaceCard {
+        background: rgba(239, 218, 178, 0.97);
+        border: 1px solid #765039;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+      .workspaceHead {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: start;
+      }
+      .workspaceHead h2 {
+        font-weight: normal;
+        font-size: 32px;
+        margin: 0 0 5px;
+      }
+      .tabs {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+      .tabs button {
+        border: 1px solid #8b6647;
+        background: #ead2a7;
+        padding: 9px 12px;
+      }
+      .tabs button.active {
+        background: #71342b;
+        color: #f8dfb0;
+      }
+      .twoCol {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+      }
+      .list {
+        border-top: 1px solid #a27c55;
+      }
+      .row {
+        padding: 14px 0;
+        border-bottom: 1px solid #b08b61;
+      }
+      .row h3 {
+        font-weight: normal;
+        margin: 0 0 4px;
+      }
+      .row p {
+        margin: 5px 0;
+        color: #5d4737;
+        line-height: 1.5;
+      }
+      .chat {
+        position: fixed;
+        right: 20px;
+        bottom: 70px;
+        width: min(560px, calc(100vw - 40px));
+        height: min(700px, 78vh);
+        z-index: 80;
+        background: #f1dbad;
+        border: 1px solid #6e472f;
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
+        display: none;
+        flex-direction: column;
+      }
+      .chat.open {
+        display: flex;
+      }
+      .chatHead {
+        padding: 15px 18px;
+        border-bottom: 1px solid #a27c55;
+        display: flex;
+        justify-content: space-between;
+      }
+      .chatHead strong {
+        font-weight: normal;
+        font-size: 19px;
+      }
+      .chatLog {
+        flex: 1;
+        overflow: auto;
+        padding: 18px;
+      }
+      .bubble {
+        max-width: 88%;
+        padding: 12px 14px;
+        margin: 0 0 12px;
+        border: 1px solid #a37d57;
+        line-height: 1.55;
+        white-space: pre-wrap;
+      }
+      .bubble.user {
+        margin-left: auto;
+        background: #71342b;
+        color: #f5dfb5;
+        border-color: #71342b;
+      }
+      .bubble.assistant {
+        background: #f7e5bd;
+      }
+      .chatComposer {
+        border-top: 1px solid #a27c55;
+        padding: 10px;
+        display: flex;
+        gap: 8px;
+      }
+      .chatComposer textarea {
+        flex: 1;
+        min-height: 48px;
+        max-height: 130px;
+        resize: vertical;
+        border: 1px solid #896442;
+        background: #f7e5bd;
+        padding: 9px;
+      }
+      .chatComposer button {
+        border: 1px solid #70462e;
+        background: #71342b;
+        color: #f5dfb5;
+        padding: 0 15px;
+      }
+      .notice {
+        font-size: 12px;
+        color: #6d523d;
+        padding: 10px 18px;
+        border-top: 1px solid #a27c55;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(18, 11, 8, 0.72);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal.open {
+        display: flex;
+      }
+      .modalCard {
+        width: min(520px, 100%);
+        max-height: 88vh;
+        overflow: auto;
+        background: #f0d9ad;
+        border: 1px solid #765039;
+        box-shadow: var(--shadow);
+        padding: 25px;
+      }
+      .toast {
+        position: fixed;
+        z-index: 120;
+        left: 50%;
+        bottom: 25px;
+        transform: translateX(-50%);
+        background: #21150f;
+        color: #f3d9aa;
+        border: 1px solid #8b6343;
+        padding: 10px 16px;
+        display: none;
+      }
+      .toast.show {
+        display: block;
+      }
+      @media (max-width: 900px) {
+        .brand {
+          width: 205px;
+          left: 14px;
+          top: 12px;
+        }
+        .brand h1 {
+          font-size: 23px;
+        }
+        .rail {
+          left: 14px;
+          top: 190px;
+          width: 205px;
+        }
+        .topbar {
+          right: 14px;
+        }
+        .searchBtn {
+          min-width: 180px;
+        }
+        .oracleCta {
+          right: 14px;
+        }
+        .bottom {
+          left: 14px;
+          right: 14px;
+        }
+        .twoCol {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 600px) {
+        body {
+          overflow: hidden;
+        }
+        .art {
+          background-position: center center;
+        }
+        .art:before {
+          background: linear-gradient(
+            180deg,
+            rgba(16, 10, 7, 0.5),
+            transparent 28%,
+            transparent 68%,
+            rgba(16, 10, 7, 0.55)
+          );
+        }
+        .brand {
+          left: 10px;
+          top: 10px;
+          width: 175px;
+          padding: 11px 13px;
+        }
+        .brand h1 {
+          font-size: 19px;
+        }
+        .brand p {
+          font-size: 11px;
+        }
+        .topbar {
+          top: 10px;
+          right: 10px;
+        }
+        .searchBtn {
+          width: 42px;
+          min-width: 42px;
+          padding: 9px;
+          font-size: 0;
+          border-radius: 50%;
+          text-align: center;
+        }
+        .searchBtn:before {
+          font-size: 19px;
+          margin: 0;
+        }
+        .profileBtn {
+          min-width: 0;
+          width: 42px;
+          font-size: 0;
+          padding: 9px;
+          border-radius: 50%;
+        }
+        .profileBtn:before {
+          content: '◉';
+          font-size: 15px;
+        }
+        .rail {
+          left: 10px;
+          top: auto;
+          bottom: 80px;
+          width: 165px;
+          padding: 5px;
+        }
+        .rail button {
+          font-size: 11px;
+          padding: 8px;
+        }
+        .oracleCta {
+          left: 50%;
+          right: auto;
+          bottom: 20px;
+          transform: translateX(-50%);
+          white-space: nowrap;
+        }
+        .bottom {
+          bottom: 8px;
+        }
+        .languages,
+        .status {
+          display: none;
+        }
+        .drawer {
+          width: 94vw;
+        }
+        .drawerInner {
+          padding: 22px 18px 45px;
+        }
+        .bookGrid {
+          grid-template-columns: 1fr;
+        }
+        .workspace {
+          margin: 15px auto 30px;
+          padding: 0 10px;
+        }
+        .workspaceCard {
+          padding: 18px;
+        }
+        .workspaceHead {
+          display: block;
+        }
+        .workspaceHead h2 {
+          font-size: 25px;
+        }
+        .chat {
+          right: 8px;
+          bottom: 8px;
+          width: calc(100vw - 16px);
+          height: 78vh;
+        }
+        .chatLog {
+          padding: 12px;
+        }
+        .chatComposer textarea {
+          font-size: 14px;
+        }
+        .hit {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app" id="app">
+      <div class="art" id="art" aria-hidden="true"></div>
+      <div class="chrome">
+        <section class="brand" aria-label="The Oracle of Tantra brand">
+          <div class="eyebrow">A living research library</div>
+          <h1>The Oracle<br />of Tantra</h1>
+          <span class="mark"></span>
+          <p>Texts, traditions, scholarship and questions.</p>
+        </section>
+        <div class="topbar">
+          <button class="searchBtn" id="searchBtn">Search texts, concepts…</button
+          ><button class="profileBtn" id="profileBtn">Profile</button>
+        </div>
+        <nav class="rail" aria-label="Primary navigation">
+          <button class="active" data-view="home">Home</button
+          ><button data-view="library">Library</button><button data-view="research">Research</button
+          ><button data-view="journal">Journal</button><button data-view="profile">Profile</button>
+        </nav>
+        <div class="bottom">
+          <div class="languages">
+            <button id="langBtn">EN · বাংলা · हिन्दी · संस्कृत · 中文 · Español</button>
+          </div>
+          <div class="status" id="status">Guest researcher · local workspace</div>
+        </div>
+        <div class="oracleCta"><button id="askBtn">Ask the Oracle →</button></div>
+        <button class="hit oracleHit" id="oracleHit" aria-label="Ask the Oracle"></button
+        ><button class="hit shelfHit" id="shelfHit" aria-label="Open the library"></button>
+      </div>
 
-  <section class="view" id="viewLibrary"><div class="workspace"><div class="workspaceCard"><div class="workspaceHead"><div><div class="kicker">The shelves</div><h2>Library</h2><p>Browse texts by tradition, period and evidence status.</p></div><button class="secondary" data-home>Return to the manuscript</button></div><div class="tabs" id="traditionTabs"></div><div class="bookGrid" id="bookGrid"></div></div></div></section>
-  <section class="view" id="viewResearch"><div class="workspace"><div class="workspaceCard"><div class="kicker">Researcher workspace</div><h2>Research</h2><p>Ask a question, build a source chain and keep the reasoning separate from the evidence.</p><div class="twoCol"><div><div class="field"><label>Research question</label><textarea id="researchQuestion" placeholder="Compare how a concept appears in primary texts, historical scholarship and later interpretation…"></textarea></div><div class="field"><label>Language</label><select id="researchLanguage"><option value="en">English</option><option value="bn">বাংলা</option><option value="hi">हिन्दी</option><option value="sa">संस्कृत</option><option value="zh">中文</option><option value="es">Español</option></select></div><div class="actions"><button class="primary" id="researchAsk">Ask the Oracle</button><button class="secondary" id="researchSave">Save to journal</button></div></div><div><div class="kicker">Answer framework</div><div class="list"><div class="row"><h3>1 · Textual evidence</h3><p>Primary passages and editions when available.</p></div><div class="row"><h3>2 · Historical scholarship</h3><p>Modern academic interpretation and historical context.</p></div><div class="row"><h3>3 · Traditional interpretation</h3><p>Lineage-specific readings, clearly identified.</p></div><div class="row"><h3>4 · Modern interpretation</h3><p>Contemporary readings without collapsing them into tradition.</p></div><div class="row"><h3>5 · AI synthesis</h3><p>A reasoned synthesis that states uncertainty.</p></div></div></div></div></div></div></section>
-  <section class="view" id="viewJournal"><div class="workspace"><div class="workspaceCard"><div class="workspaceHead"><div><div class="kicker">Your notebook</div><h2>Journal</h2><p>Private research notes saved in this browser until persistent accounts are connected.</p></div><button class="primary" id="newNote">New note</button></div><div id="notesList" class="list"></div></div></div></section>
-  <section class="view" id="viewProfile"><div class="workspace"><div class="workspaceCard"><div class="kicker">Research identity</div><h2>Profile</h2><p>Guest mode is active. Your current notes and bookmarks are stored locally in this browser.</p><hr class="rule"><div class="field"><label>Display name</label><input id="displayName" placeholder="Researcher"></div><div class="actions"><button class="primary" id="saveProfile">Save profile</button><button class="secondary" id="clearLocal">Clear local workspace</button></div><hr class="rule"><p><strong>Planned account layer:</strong> email/password and Google sign-in, persistent PostgreSQL records, private uploads, source review and research projects.</p></div></div></section>
+      <section class="view" id="viewLibrary">
+        <div class="workspace">
+          <div class="workspaceCard">
+            <div class="workspaceHead">
+              <div>
+                <div class="kicker">The shelves</div>
+                <h2>Library</h2>
+                <p>Browse texts by tradition, period and evidence status.</p>
+              </div>
+              <button class="secondary" data-home>Return to the manuscript</button>
+            </div>
+            <div class="tabs" id="traditionTabs"></div>
+            <div class="bookGrid" id="bookGrid"></div>
+          </div>
+        </div>
+      </section>
+      <section class="view" id="viewResearch">
+        <div class="workspace">
+          <div class="workspaceCard">
+            <div class="kicker">Researcher workspace</div>
+            <h2>Research</h2>
+            <p>
+              Ask a question, build a source chain and keep the reasoning separate from the
+              evidence.
+            </p>
+            <div class="twoCol">
+              <div>
+                <div class="field">
+                  <label>Research question</label
+                  ><textarea
+                    id="researchQuestion"
+                    placeholder="Compare how a concept appears in primary texts, historical scholarship and later interpretation…"
+                  ></textarea>
+                </div>
+                <div class="field">
+                  <label>Language</label
+                  ><select id="researchLanguage">
+                    <option value="en">English</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="sa">संस्कृत</option>
+                    <option value="zh">中文</option>
+                    <option value="es">Español</option>
+                  </select>
+                </div>
+                <div class="actions">
+                  <button class="primary" id="researchAsk">Ask the Oracle</button
+                  ><button class="secondary" id="researchSave">Save to journal</button>
+                </div>
+              </div>
+              <div>
+                <div class="kicker">Answer framework</div>
+                <div class="list">
+                  <div class="row">
+                    <h3>1 · Textual evidence</h3>
+                    <p>Primary passages and editions when available.</p>
+                  </div>
+                  <div class="row">
+                    <h3>2 · Historical scholarship</h3>
+                    <p>Modern academic interpretation and historical context.</p>
+                  </div>
+                  <div class="row">
+                    <h3>3 · Traditional interpretation</h3>
+                    <p>Lineage-specific readings, clearly identified.</p>
+                  </div>
+                  <div class="row">
+                    <h3>4 · Modern interpretation</h3>
+                    <p>Contemporary readings without collapsing them into tradition.</p>
+                  </div>
+                  <div class="row">
+                    <h3>5 · AI synthesis</h3>
+                    <p>A reasoned synthesis that states uncertainty.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="view" id="viewJournal">
+        <div class="workspace">
+          <div class="workspaceCard">
+            <div class="workspaceHead">
+              <div>
+                <div class="kicker">Your notebook</div>
+                <h2>Journal</h2>
+                <p>
+                  Private research notes saved in this browser until persistent accounts are
+                  connected.
+                </p>
+              </div>
+              <button class="primary" id="newNote">New note</button>
+            </div>
+            <div id="notesList" class="list"></div>
+          </div>
+        </div>
+      </section>
+      <section class="view" id="viewProfile">
+        <div class="workspace">
+          <div class="workspaceCard">
+            <div class="kicker">Research identity</div>
+            <h2>Profile</h2>
+            <p>
+              Guest mode is active. Your current notes and bookmarks are stored locally in this
+              browser.
+            </p>
+            <hr class="rule" />
+            <div class="field">
+              <label>Display name</label><input id="displayName" placeholder="Researcher" />
+            </div>
+            <div class="actions">
+              <button class="primary" id="saveProfile">Save profile</button
+              ><button class="secondary" id="clearLocal">Clear local workspace</button>
+            </div>
+            <hr class="rule" />
+            <p>
+              <strong>Planned account layer:</strong> email/password and Google sign-in, persistent
+              PostgreSQL records, private uploads, source review and research projects.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <aside class="drawer right" id="bookDrawer"><div class="drawerInner"><button class="close" data-close="bookDrawer">×</button><div class="kicker">Text record</div><h2 id="bookTitle">Vijñāna Bhairava Tantra</h2><p id="bookMeta"></p><hr class="rule"><p id="bookDesc"></p><div id="bookTags"></div><div class="actions"><button class="primary" id="openText">Open in researcher</button><button class="secondary" id="bookmarkText">Bookmark</button><button class="secondary" id="askAboutText">Ask the Oracle</button></div></div></aside>
-  <aside class="drawer left" id="searchDrawer"><div class="drawerInner"><button class="close" data-close="searchDrawer">×</button><div class="kicker">Find a text</div><h2>Search the library</h2><div class="field"><input id="searchInput" placeholder="Try: mantra, Kaula, śūnyatā…"></div><div id="searchResults" class="list"></div></div></aside>
-  <aside class="drawer right" id="langDrawer"><div class="drawerInner"><button class="close" data-close="langDrawer">×</button><div class="kicker">Language</div><h2>Choose your language</h2><div id="langOptions"></div></div></aside>
-  <div class="chat" id="chat"><div class="chatHead"><strong>The Oracle</strong><button class="close" id="chatClose">×</button></div><div class="notice">Scholarly mode: evidence, history, tradition, modern interpretation and AI synthesis are kept distinct. The Oracle does not invent citations.</div><div class="chatLog" id="chatLog"><div class="bubble assistant">Welcome. Ask about a text, concept, lineage, historical question or comparison.</div></div><div class="chatComposer"><textarea id="chatInput" placeholder="Ask a research question…"></textarea><button id="chatSend">Send</button></div></div>
-  <div class="modal" id="noteModal"><div class="modalCard"><button class="close" id="noteClose">×</button><div class="kicker">Private note</div><h2>New research note</h2><div class="field"><label>Title</label><input id="noteTitle" placeholder="Observation or research lead"></div><div class="field"><label>Note</label><textarea id="noteBody" placeholder="Write your note…"></textarea></div><div class="actions"><button class="primary" id="saveNote">Save note</button></div></div></div>
-  <div class="toast" id="toast"></div>
-</main>
-<script>
-const A=window.ORACLE_ASSETS||{};
-const texts=[
- {id:'vbt',title:'Vijñāna Bhairava Tantra',tradition:'Kashmir Śaivism',period:'Medieval India · date debated',desc:'A major Śaiva contemplative text traditionally presented as a dialogue of Bhairava and Bhairavī, known for 112 dhāraṇā-oriented contemplative methods.',tags:['Śaiva','Meditation','Dharana'],evidence:'Primary text; translation and edition required for precise quotation.'},
- {id:'tantraloka',title:'Tantrāloka',tradition:'Trika / Kaula',period:'Abhinavagupta · c. 10th–11th century',desc:'A large systematic work on Trika Śaivism and Kaula practice, theology, ritual and aesthetics.',tags:['Trika','Kaula','Abhinavagupta'],evidence:'Primary text with substantial commentarial and scholarly literature.'},
- {id:'kularnava',title:'Kularṇava Tantra',tradition:'Kaula Śākta-Śaiva',period:'Medieval · date debated',desc:'A major Kaula tantra addressing initiation, guru, ritual, knowledge and liberation. Historical dating and transmission require care.',tags:['Kaula','Śākta','Guru'],evidence:'Primary text; manuscript and edition context matters.'},
- {id:'devimahatmya',title:'Devī Māhātmya',tradition:'Śākta',period:'c. 5th–6th century CE',desc:'A central Sanskrit text of Goddess traditions embedded in the Mārkaṇḍeya Purāṇa, influential in later Śākta practice.',tags:['Śākta','Devī','Purāṇa'],evidence:'Primary text with extensive historical scholarship.'},
- {id:'hevajra',title:'Hevajra Tantra',tradition:'Vajrayāna',period:'Medieval Buddhist Tantra',desc:'An important Buddhist tantric scripture associated with Yoginī Tantra traditions. Interpretation depends strongly on Buddhist textual and ritual context.',tags:['Vajrayāna','Buddhist Tantra'],evidence:'Primary text and specialized scholarship required.'},
- {id:'shaktisangama',title:'Śāktisaṅgama Tantra',tradition:'Śākta',period:'Late medieval · complex transmission',desc:'A substantial Śākta tantric corpus whose sections and transmission histories need edition-specific treatment.',tags:['Śākta','Tantra'],evidence:'Edition and manuscript provenance should be checked.'}
-];
-const langs=[['en','English'],['bn','বাংলা'],['hi','हिन्दी'],['sa','संस्कृत'],['zh','中文'],['es','Español']];
-let selectedText=texts[0], chatHistory=[], currentLang=localStorage.getItem('oracleLang')||'en';
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-function setArt(){const url=matchMedia('(max-width:600px)').matches?(A.masterMobile||A.masterDesktop):A.masterDesktop;$('#art').style.backgroundImage=`url("${url}")`};setArt();addEventListener('resize',setArt);
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
-function closeDrawers(){$$('.drawer').forEach(d=>d.classList.remove('open'))}
-function showView(name){$$('.view').forEach(v=>v.classList.remove('open'));const v=$('#view'+name[0].toUpperCase()+name.slice(1));if(v)v.classList.add('open');$$('.rail button').forEach(b=>b.classList.toggle('active',b.dataset.view===name));if(name==='library')renderLibrary();if(name==='journal')renderNotes()}
-function openBook(t){selectedText=t;$('#bookTitle').textContent=t.title;$('#bookMeta').textContent=t.tradition+' · '+t.period;$('#bookDesc').textContent=t.desc+' '+t.evidence;$('#bookTags').innerHTML=t.tags.map(x=>`<span class="tag">${x}</span>`).join('');$('#bookDrawer').classList.add('open')}
-function renderLibrary(filter='All'){const tags=['All',...new Set(texts.map(t=>t.tradition))];$('#traditionTabs').innerHTML=tags.map(x=>`<button class="${x===filter?'active':''}" data-filter="${x}">${x}</button>`).join('');const shown=filter==='All'?texts:texts.filter(t=>t.tradition===filter);$('#bookGrid').innerHTML=shown.map(t=>`<article class="book"><button data-book="${t.id}"><strong>${t.title}</strong><small>${t.tradition}<br>${t.period}</small><span class="tag">Open record</span></button></article>`).join('')}
-function search(q){const z=q.toLowerCase();const r=texts.filter(t=>(t.title+' '+t.tradition+' '+t.desc+' '+t.tags.join(' ')).toLowerCase().includes(z));$('#searchResults').innerHTML=r.length?r.map(t=>`<div class="row"><h3><button style="border:0;background:none;padding:0;color:inherit" data-book="${t.id}">${t.title}</button></h3><p>${t.tradition} · ${t.period}</p></div>`).join(''):'<p>No matching record in the starter catalogue.</p>'}
-function renderNotes(){const notes=JSON.parse(localStorage.getItem('oracleNotes')||'[]');$('#notesList').innerHTML=notes.length?notes.map(n=>`<div class="row"><h3>${escapeHtml(n.title)}</h3><p>${escapeHtml(n.body)}</p><small>${new Date(n.time).toLocaleString()}</small></div>`).join(''):'<div class="row"><p>No notes yet. Your first research note can start here.</p></div>'}
-function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function addBubble(role,text){const b=document.createElement('div');b.className='bubble '+role;b.textContent=text;$('#chatLog').appendChild(b);$('#chatLog').scrollTop=$('#chatLog').scrollHeight}
-async function askOracle(text,language=currentLang){if(!text.trim())return;addBubble('user',text);chatHistory.push({role:'user',content:text});$('#chatInput').value='';const thinking=document.createElement('div');thinking.className='bubble assistant';thinking.textContent='Consulting the library…';thinking.id='thinking';$('#chatLog').appendChild(thinking);try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({language,messages:chatHistory.slice(-12)})});const data=await r.json();if(!r.ok)throw new Error(data.error||'Request failed');thinking.remove();addBubble('assistant',data.reply);chatHistory.push({role:'assistant',content:data.reply})}catch(e){thinking.remove();addBubble('assistant','The Oracle could not reach the language service. Check the backend deployment and OPENAI_API_KEY, then try again.');toast(e.message)}}
-function openChat(prefill=''){closeDrawers();$('#chat').classList.add('open');if(prefill){$('#chatInput').value=prefill;$('#chatInput').focus()}}
-function saveNote(title,body){const notes=JSON.parse(localStorage.getItem('oracleNotes')||'[]');notes.unshift({title,body,time:Date.now()});localStorage.setItem('oracleNotes',JSON.stringify(notes));toast('Note saved locally.');renderNotes()}
-$('#askBtn').onclick=()=>openChat();$('#oracleHit').onclick=()=>openChat();$('#chatClose').onclick=()=>$('#chat').classList.remove('open');$('#shelfHit').onclick=()=>showView('library');$('#searchBtn').onclick=()=>{$('#searchDrawer').classList.add('open');$('#searchInput').focus();search('')};$('#profileBtn').onclick=()=>showView('profile');$('#langBtn').onclick=()=>{$('#langOptions').innerHTML=langs.map(([k,n])=>`<button class="secondary" style="width:100%;margin:5px 0;text-align:left" data-lang="${k}">${n}</button>`).join('');$('#langDrawer').classList.add('open')};
-$$('.rail button').forEach(b=>b.onclick=()=>showView(b.dataset.view));$$('[data-home]').forEach(b=>b.onclick=()=>showView('home'));document.addEventListener('click',e=>{const c=e.target.closest('[data-close]');if(c)$('#'+c.dataset.close).classList.remove('open');const b=e.target.closest('[data-book]');if(b){const t=texts.find(x=>x.id===b.dataset.book);if(t)openBook(t)}const f=e.target.closest('[data-filter]');if(f)renderLibrary(f.dataset.filter);const l=e.target.closest('[data-lang]');if(l){currentLang=l.dataset.lang;localStorage.setItem('oracleLang',currentLang);$('#langDrawer').classList.remove('open');toast('Language set to '+(langs.find(x=>x[0]===currentLang)?.[1]||currentLang))}});
-$('#searchInput').oninput=e=>search(e.target.value);$('#chatSend').onclick=()=>askOracle($('#chatInput').value);$('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askOracle(e.target.value)}});$('#askAboutText').onclick=()=>openChat('Tell me about '+selectedText.title+' and clearly separate textual evidence, historical scholarship, traditional interpretation, modern interpretation, and AI synthesis.');$('#openText').onclick=()=>{showView('research');$('#researchQuestion').value='What is the historical and textual context of '+selectedText.title+'?';$('#bookDrawer').classList.remove('open')};$('#bookmarkText').onclick=()=>{const b=JSON.parse(localStorage.getItem('oracleBookmarks')||'[]');if(!b.includes(selectedText.id))b.push(selectedText.id);localStorage.setItem('oracleBookmarks',JSON.stringify(b));toast('Bookmarked '+selectedText.title)};
-$('#researchAsk').onclick=()=>{const q=$('#researchQuestion').value.trim();if(q)openChat(q)};$('#researchSave').onclick=()=>{$('#noteTitle').value='Research question';$('#noteBody').value=$('#researchQuestion').value;$('#noteModal').classList.add('open')};$('#newNote').onclick=()=>{$('#noteTitle').value='';$('#noteBody').value='';$('#noteModal').classList.add('open')};$('#noteClose').onclick=()=>$('#noteModal').classList.remove('open');$('#saveNote').onclick=()=>{const a=$('#noteTitle').value.trim(),b=$('#noteBody').value.trim();if(a&&b){saveNote(a,b);$('#noteModal').classList.remove('open')}};$('#saveProfile').onclick=()=>{localStorage.setItem('oracleName',$('#displayName').value.trim()||'Researcher');$('#status').textContent=(localStorage.getItem('oracleName')||'Researcher')+' · local workspace';toast('Profile saved locally.')};$('#displayName').value=localStorage.getItem('oracleName')||'';$('#clearLocal').onclick=()=>{if(confirm('Clear local notes, bookmarks and profile?')){['oracleNotes','oracleBookmarks','oracleName'].forEach(k=>localStorage.removeItem(k));location.reload()}};
-$('#researchLanguage').value=currentLang;showView('home');
-</script>
-</body>
+      <aside class="drawer right" id="bookDrawer">
+        <div class="drawerInner">
+          <button class="close" data-close="bookDrawer">×</button>
+          <div class="kicker">Text record</div>
+          <h2 id="bookTitle">Vijñāna Bhairava Tantra</h2>
+          <p id="bookMeta"></p>
+          <hr class="rule" />
+          <p id="bookDesc"></p>
+          <div id="bookTags"></div>
+          <div class="actions">
+            <button class="primary" id="openText">Open in researcher</button
+            ><button class="secondary" id="bookmarkText">Bookmark</button
+            ><button class="secondary" id="askAboutText">Ask the Oracle</button>
+          </div>
+        </div>
+      </aside>
+      <aside class="drawer left" id="searchDrawer">
+        <div class="drawerInner">
+          <button class="close" data-close="searchDrawer">×</button>
+          <div class="kicker">Find a text</div>
+          <h2>Search the library</h2>
+          <div class="field">
+            <input id="searchInput" placeholder="Try: mantra, Kaula, śūnyatā…" />
+          </div>
+          <div id="searchResults" class="list"></div>
+        </div>
+      </aside>
+      <aside class="drawer right" id="langDrawer">
+        <div class="drawerInner">
+          <button class="close" data-close="langDrawer">×</button>
+          <div class="kicker">Language</div>
+          <h2>Choose your language</h2>
+          <div id="langOptions"></div>
+        </div>
+      </aside>
+      <div class="chat" id="chat">
+        <div class="chatHead">
+          <strong>The Oracle</strong><button class="close" id="chatClose">×</button>
+        </div>
+        <div class="notice">
+          Scholarly mode: evidence, history, tradition, modern interpretation and AI synthesis are
+          kept distinct. The Oracle does not invent citations.
+        </div>
+        <div class="chatLog" id="chatLog">
+          <div class="bubble assistant">
+            Welcome. Ask about a text, concept, lineage, historical question or comparison.
+          </div>
+        </div>
+        <div class="chatComposer">
+          <textarea id="chatInput" placeholder="Ask a research question…"></textarea
+          ><button id="chatSend">Send</button>
+        </div>
+      </div>
+      <div class="modal" id="noteModal">
+        <div class="modalCard">
+          <button class="close" id="noteClose">×</button>
+          <div class="kicker">Private note</div>
+          <h2>New research note</h2>
+          <div class="field">
+            <label>Title</label><input id="noteTitle" placeholder="Observation or research lead" />
+          </div>
+          <div class="field">
+            <label>Note</label><textarea id="noteBody" placeholder="Write your note…"></textarea>
+          </div>
+          <div class="actions"><button class="primary" id="saveNote">Save note</button></div>
+        </div>
+      </div>
+      <div class="toast" id="toast"></div>
+    </main>
+    <script>
+      const A = window.ORACLE_ASSETS || {};
+      const texts = [
+        {
+          id: 'vbt',
+          title: 'Vijñāna Bhairava Tantra',
+          tradition: 'Kashmir Śaivism',
+          period: 'Medieval India · date debated',
+          desc: 'A major Śaiva contemplative text traditionally presented as a dialogue of Bhairava and Bhairavī, known for 112 dhāraṇā-oriented contemplative methods.',
+          tags: ['Śaiva', 'Meditation', 'Dharana'],
+          evidence: 'Primary text; translation and edition required for precise quotation.',
+        },
+        {
+          id: 'tantraloka',
+          title: 'Tantrāloka',
+          tradition: 'Trika / Kaula',
+          period: 'Abhinavagupta · c. 10th–11th century',
+          desc: 'A large systematic work on Trika Śaivism and Kaula practice, theology, ritual and aesthetics.',
+          tags: ['Trika', 'Kaula', 'Abhinavagupta'],
+          evidence: 'Primary text with substantial commentarial and scholarly literature.',
+        },
+        {
+          id: 'kularnava',
+          title: 'Kularṇava Tantra',
+          tradition: 'Kaula Śākta-Śaiva',
+          period: 'Medieval · date debated',
+          desc: 'A major Kaula tantra addressing initiation, guru, ritual, knowledge and liberation. Historical dating and transmission require care.',
+          tags: ['Kaula', 'Śākta', 'Guru'],
+          evidence: 'Primary text; manuscript and edition context matters.',
+        },
+        {
+          id: 'devimahatmya',
+          title: 'Devī Māhātmya',
+          tradition: 'Śākta',
+          period: 'c. 5th–6th century CE',
+          desc: 'A central Sanskrit text of Goddess traditions embedded in the Mārkaṇḍeya Purāṇa, influential in later Śākta practice.',
+          tags: ['Śākta', 'Devī', 'Purāṇa'],
+          evidence: 'Primary text with extensive historical scholarship.',
+        },
+        {
+          id: 'hevajra',
+          title: 'Hevajra Tantra',
+          tradition: 'Vajrayāna',
+          period: 'Medieval Buddhist Tantra',
+          desc: 'An important Buddhist tantric scripture associated with Yoginī Tantra traditions. Interpretation depends strongly on Buddhist textual and ritual context.',
+          tags: ['Vajrayāna', 'Buddhist Tantra'],
+          evidence: 'Primary text and specialized scholarship required.',
+        },
+        {
+          id: 'shaktisangama',
+          title: 'Śāktisaṅgama Tantra',
+          tradition: 'Śākta',
+          period: 'Late medieval · complex transmission',
+          desc: 'A substantial Śākta tantric corpus whose sections and transmission histories need edition-specific treatment.',
+          tags: ['Śākta', 'Tantra'],
+          evidence: 'Edition and manuscript provenance should be checked.',
+        },
+      ];
+      const langs = [
+        ['en', 'English'],
+        ['bn', 'বাংলা'],
+        ['hi', 'हिन्दी'],
+        ['sa', 'संस्कृत'],
+        ['zh', '中文'],
+        ['es', 'Español'],
+      ];
+      let selectedText = texts[0],
+        chatHistory = [],
+        currentLang = localStorage.getItem('oracleLang') || 'en';
+      const $ = (s) => document.querySelector(s),
+        $$ = (s) => [...document.querySelectorAll(s)];
+      function setArt() {
+        const url = matchMedia('(max-width:600px)').matches
+          ? A.masterMobile || A.masterDesktop
+          : A.masterDesktop;
+        $('#art').style.backgroundImage = `url("${url}")`;
+      }
+      setArt();
+      addEventListener('resize', setArt);
+      function toast(m) {
+        const t = $('#toast');
+        t.textContent = m;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2400);
+      }
+      function closeDrawers() {
+        $$('.drawer').forEach((d) => d.classList.remove('open'));
+      }
+      function showView(name) {
+        $$('.view').forEach((v) => v.classList.remove('open'));
+        const v = $('#view' + name[0].toUpperCase() + name.slice(1));
+        if (v) v.classList.add('open');
+        $$('.rail button').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
+        if (name === 'library') renderLibrary();
+        if (name === 'journal') renderNotes();
+      }
+      function openBook(t) {
+        selectedText = t;
+        $('#bookTitle').textContent = t.title;
+        $('#bookMeta').textContent = t.tradition + ' · ' + t.period;
+        $('#bookDesc').textContent = t.desc + ' ' + t.evidence;
+        $('#bookTags').innerHTML = t.tags.map((x) => `<span class="tag">${x}</span>`).join('');
+        $('#bookDrawer').classList.add('open');
+      }
+      function renderLibrary(filter = 'All') {
+        const tags = ['All', ...new Set(texts.map((t) => t.tradition))];
+        $('#traditionTabs').innerHTML = tags
+          .map(
+            (x) =>
+              `<button class="${x === filter ? 'active' : ''}" data-filter="${x}">${x}</button>`,
+          )
+          .join('');
+        const shown = filter === 'All' ? texts : texts.filter((t) => t.tradition === filter);
+        $('#bookGrid').innerHTML = shown
+          .map(
+            (t) =>
+              `<article class="book"><button data-book="${t.id}"><strong>${t.title}</strong><small>${t.tradition}<br>${t.period}</small><span class="tag">Open record</span></button></article>`,
+          )
+          .join('');
+      }
+      function search(q) {
+        const z = q.toLowerCase();
+        const r = texts.filter((t) =>
+          (t.title + ' ' + t.tradition + ' ' + t.desc + ' ' + t.tags.join(' '))
+            .toLowerCase()
+            .includes(z),
+        );
+        $('#searchResults').innerHTML = r.length
+          ? r
+              .map(
+                (t) =>
+                  `<div class="row"><h3><button style="border:0;background:none;padding:0;color:inherit" data-book="${t.id}">${t.title}</button></h3><p>${t.tradition} · ${t.period}</p></div>`,
+              )
+              .join('')
+          : '<p>No matching record in the starter catalogue.</p>';
+      }
+      function renderNotes() {
+        const notes = JSON.parse(localStorage.getItem('oracleNotes') || '[]');
+        $('#notesList').innerHTML = notes.length
+          ? notes
+              .map(
+                (n) =>
+                  `<div class="row"><h3>${escapeHtml(n.title)}</h3><p>${escapeHtml(n.body)}</p><small>${new Date(n.time).toLocaleString()}</small></div>`,
+              )
+              .join('')
+          : '<div class="row"><p>No notes yet. Your first research note can start here.</p></div>';
+      }
+      function escapeHtml(s) {
+        return String(s).replace(
+          /[&<>'"]/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[c],
+        );
+      }
+      function addBubble(role, text) {
+        const b = document.createElement('div');
+        b.className = 'bubble ' + role;
+        b.textContent = text;
+        $('#chatLog').appendChild(b);
+        $('#chatLog').scrollTop = $('#chatLog').scrollHeight;
+      }
+      async function askOracle(text, language = currentLang) {
+        if (!text.trim()) return;
+        addBubble('user', text);
+        chatHistory.push({ role: 'user', content: text });
+        $('#chatInput').value = '';
+        const thinking = document.createElement('div');
+        thinking.className = 'bubble assistant';
+        thinking.textContent = 'Consulting the library…';
+        thinking.id = 'thinking';
+        $('#chatLog').appendChild(thinking);
+        try {
+          const r = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ language, messages: chatHistory.slice(-12) }),
+          });
+          const data = await r.json();
+          if (!r.ok) throw new Error(data.error || 'Request failed');
+          thinking.remove();
+          addBubble('assistant', data.reply);
+          chatHistory.push({ role: 'assistant', content: data.reply });
+        } catch (e) {
+          thinking.remove();
+          addBubble(
+            'assistant',
+            'The Oracle could not reach the language service. Check the backend deployment and OPENAI_API_KEY, then try again.',
+          );
+          toast(e.message);
+        }
+      }
+      function openChat(prefill = '') {
+        closeDrawers();
+        $('#chat').classList.add('open');
+        if (prefill) {
+          $('#chatInput').value = prefill;
+          $('#chatInput').focus();
+        }
+      }
+      function saveNote(title, body) {
+        const notes = JSON.parse(localStorage.getItem('oracleNotes') || '[]');
+        notes.unshift({ title, body, time: Date.now() });
+        localStorage.setItem('oracleNotes', JSON.stringify(notes));
+        toast('Note saved locally.');
+        renderNotes();
+      }
+      $('#askBtn').onclick = () => openChat();
+      $('#oracleHit').onclick = () => openChat();
+      $('#chatClose').onclick = () => $('#chat').classList.remove('open');
+      $('#shelfHit').onclick = () => showView('library');
+      $('#searchBtn').onclick = () => {
+        $('#searchDrawer').classList.add('open');
+        $('#searchInput').focus();
+        search('');
+      };
+      $('#profileBtn').onclick = () => showView('profile');
+      $('#langBtn').onclick = () => {
+        $('#langOptions').innerHTML = langs
+          .map(
+            ([k, n]) =>
+              `<button class="secondary" style="width:100%;margin:5px 0;text-align:left" data-lang="${k}">${n}</button>`,
+          )
+          .join('');
+        $('#langDrawer').classList.add('open');
+      };
+      $$('.rail button').forEach((b) => (b.onclick = () => showView(b.dataset.view)));
+      $$('[data-home]').forEach((b) => (b.onclick = () => showView('home')));
+      document.addEventListener('click', (e) => {
+        const c = e.target.closest('[data-close]');
+        if (c) $('#' + c.dataset.close).classList.remove('open');
+        const b = e.target.closest('[data-book]');
+        if (b) {
+          const t = texts.find((x) => x.id === b.dataset.book);
+          if (t) openBook(t);
+        }
+        const f = e.target.closest('[data-filter]');
+        if (f) renderLibrary(f.dataset.filter);
+        const l = e.target.closest('[data-lang]');
+        if (l) {
+          currentLang = l.dataset.lang;
+          localStorage.setItem('oracleLang', currentLang);
+          $('#langDrawer').classList.remove('open');
+          toast('Language set to ' + (langs.find((x) => x[0] === currentLang)?.[1] || currentLang));
+        }
+      });
+      $('#searchInput').oninput = (e) => search(e.target.value);
+      $('#chatSend').onclick = () => askOracle($('#chatInput').value);
+      $('#chatInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          askOracle(e.target.value);
+        }
+      });
+      $('#askAboutText').onclick = () =>
+        openChat(
+          'Tell me about ' +
+            selectedText.title +
+            ' and clearly separate textual evidence, historical scholarship, traditional interpretation, modern interpretation, and AI synthesis.',
+        );
+      $('#openText').onclick = () => {
+        showView('research');
+        $('#researchQuestion').value =
+          'What is the historical and textual context of ' + selectedText.title + '?';
+        $('#bookDrawer').classList.remove('open');
+      };
+      $('#bookmarkText').onclick = () => {
+        const b = JSON.parse(localStorage.getItem('oracleBookmarks') || '[]');
+        if (!b.includes(selectedText.id)) b.push(selectedText.id);
+        localStorage.setItem('oracleBookmarks', JSON.stringify(b));
+        toast('Bookmarked ' + selectedText.title);
+      };
+      $('#researchAsk').onclick = () => {
+        const q = $('#researchQuestion').value.trim();
+        if (q) openChat(q);
+      };
+      $('#researchSave').onclick = () => {
+        $('#noteTitle').value = 'Research question';
+        $('#noteBody').value = $('#researchQuestion').value;
+        $('#noteModal').classList.add('open');
+      };
+      $('#newNote').onclick = () => {
+        $('#noteTitle').value = '';
+        $('#noteBody').value = '';
+        $('#noteModal').classList.add('open');
+      };
+      $('#noteClose').onclick = () => $('#noteModal').classList.remove('open');
+      $('#saveNote').onclick = () => {
+        const a = $('#noteTitle').value.trim(),
+          b = $('#noteBody').value.trim();
+        if (a && b) {
+          saveNote(a, b);
+          $('#noteModal').classList.remove('open');
+        }
+      };
+      $('#saveProfile').onclick = () => {
+        localStorage.setItem('oracleName', $('#displayName').value.trim() || 'Researcher');
+        $('#status').textContent =
+          (localStorage.getItem('oracleName') || 'Researcher') + ' · local workspace';
+        toast('Profile saved locally.');
+      };
+      $('#displayName').value = localStorage.getItem('oracleName') || '';
+      $('#clearLocal').onclick = () => {
+        if (confirm('Clear local notes, bookmarks and profile?')) {
+          ['oracleNotes', 'oracleBookmarks', 'oracleName'].forEach((k) =>
+            localStorage.removeItem(k),
+          );
+          location.reload();
+        }
+      };
+      $('#researchLanguage').value = currentLang;
+      showView('home');
+    </script>
+  </body>
 </html>
