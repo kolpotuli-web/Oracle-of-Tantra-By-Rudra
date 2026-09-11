@@ -1,7 +1,9 @@
 /* The Oracle of Tantra — generated visual asset registry. */
 window.ORACLE_ASSETS = Object.freeze({
-  masterDesktop: 'https://cdn.creativeclaw.co/u/486ee905/images/230ea5ac-c6e1-4f97-8723-aba2284debb9.png',
-  masterMobile: 'https://cdn.creativeclaw.co/u/486ee905/images/4dd00f8e-2b3a-4763-960b-9e0bdcf6829d.png',
+  /* Clean text-free master from the supplied moonlit manuscript reference. */
+  masterDesktop: 'https://cdn.creativeclaw.co/u/486ee905/images/42ff144d-e663-4530-b684-70ace2ad0067.png',
+  /* Until the dedicated male-oracle mobile artwork is generated, use the same clean master and recompose it with CSS. */
+  masterMobile: 'https://cdn.creativeclaw.co/u/486ee905/images/42ff144d-e663-4530-b684-70ace2ad0067.png',
   oracle: 'https://cdn.creativeclaw.co/u/486ee905/images/5fb0c5ee-0cc5-4b28-9544-dd6491aaac49.png',
   bookshelf: 'https://cdn.creativeclaw.co/u/486ee905/images/b4f990dc-08ad-42b1-a2b2-e4720ff21462.png',
   centralArch: 'https://cdn.creativeclaw.co/u/486ee905/images/73bf3975-c1ec-4596-968c-afbb138f2fbe.png',
