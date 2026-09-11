@@ -43,6 +43,7 @@ jobs:
           node --check assets/oracle-text-pages.js
           node --check assets/oracle-workspace.js
           node --check assets/oracle-accessibility.js
+          node --check assets/oracle-navigation.js
       - name: Validate frontend structure
         run: |
           test -s index.html
@@ -62,6 +63,7 @@ jobs:
           test -s assets/oracle-text-pages.js
           test -s assets/oracle-workspace.js
           test -s assets/oracle-accessibility.js
+          test -s assets/oracle-navigation.js
           grep -q 'id="chat"' index.html
           grep -q '/api/chat' index.html
           grep -q 'window.ORACLE_ASSETS' assets/oracle-assets.js
@@ -79,12 +81,15 @@ jobs:
           grep -q 'oracle-text-pages.js' assets/oracle-assets.js
           grep -q 'oracle-workspace.js' assets/oracle-assets.js
           grep -q 'oracle-accessibility.js' assets/oracle-assets.js
+          grep -q 'oracle-navigation.js' assets/oracle-assets.js
           grep -q 'createClient' assets/oracle-auth.js
           grep -q 'source_submissions' assets/oracle-sources.js
           grep -q 'research_projects' assets/oracle-projects.js
           grep -q 'bookmarks' assets/oracle-bookmarks.js
           grep -q 'conversations' assets/oracle-conversations.js
           grep -q 'is_admin' assets/oracle-admin.js
+          grep -q 'library_items' assets/oracle-admin.js
+          grep -q 'oracle-library' assets/oracle-admin.js
           grep -q 'CORPUS_ENDPOINT' assets/oracle-assets.js
           grep -q 'get_citation_record' assets/oracle-citations.js
           grep -q '\[\[cite:' assets/oracle-citations.js
@@ -97,3 +102,5 @@ jobs:
           grep -q 'Skip to research content' assets/oracle-accessibility.js
           grep -q 'aria-modal' assets/oracle-accessibility.js
           grep -q 'Escape' assets/oracle-accessibility.js
+          grep -q 'pageBack' assets/oracle-navigation.js
+          grep -q 'e.target===el' assets/oracle-navigation.js
