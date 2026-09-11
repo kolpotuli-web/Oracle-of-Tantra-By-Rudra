@@ -1,0 +1,10 @@
+.git/
+.github/
+assets/generated/
+backend/node_modules/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.ico
