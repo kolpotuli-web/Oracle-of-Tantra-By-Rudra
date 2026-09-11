@@ -1,53 +1,62 @@
 # The Oracle of Tantra
 
-A living research library for Tantra and related esoteric traditions.
+A scholarly research library and researcher workspace for Tantra and related esoteric traditions.
 
-## Current build
+## Current architecture
 
-The project now has an atmospheric Bengali folk-art / patachitra-inspired entrance and a calm researcher shell designed around long-form reading. The entrance is built with original HTML/CSS/SVG-style primitives rather than a stock background video, so it can be animated and interactive without depending on a large media asset.
+The production site is a static GitHub Pages frontend connected directly to Supabase for authentication, persistence, source governance, library catalogue data, corpus search, citations, and the Oracle interface.
 
-### Frontend experience
+### Frontend
 
-- Cinematic illustrated entrance with subtle motion, lamps, moon, shelves, manuscript and an Oracle figure.
-- Skip/reduced-motion-friendly entrance path.
-- Research workspace with a quiet animated library background.
-- Kindle-inspired reading direction and planned Focus Mode.
-- Clickable shelf books with source information panels.
-- Oracle / Researcher mode switch foundation.
-- Search, projects, sources, notes, bookmarks, traditions and texts navigation shell.
+- Patachitra / Indian-miniature-inspired visual shell with HTML interface layers.
+- Library of primary texts and a separate catalogue for articles, reports, papers, books, and PDFs.
+- Individual text research records with evidence notes, research notes, related texts, and linked public sources.
+- Research workspace, projects, notes, bookmarks, and saved conversations.
+- Journal and source-submission workflow.
+- Curator / Admin console with Library CRUD and source-review governance.
+- Six-language interface: English, Bengali, Hindi, Sanskrit, Mandarin Chinese, and Spanish.
+- Accessibility hardening, keyboard navigation, Escape handling, backdrop-close behavior, and consistent Back controls.
 
-### Backend
+### Data and research
 
-- `backend/server.js` — Express API, security headers, CORS, validation, rate limiting and provider abstraction.
-- Six-language API contract: English, Bengali, Hindi, Sanskrit, Mandarin Chinese and Spanish.
-- OpenAI default model is `gpt-5.6-luna`; Pollinations remains an optional fallback.
-- The browser never receives the OpenAI API key.
+Supabase stores the structured research data. Public Library records are filtered by visibility and curator approval. Public-domain or licensed files may be published as downloadable Library material; restricted or unknown works remain subject to review and lawful-link rules.
 
-### Planned next layers
+The searchable corpus uses approved source material and page-aware source chunks. Research citations can be attached to Oracle responses and opened through source cards.
 
-1. Google + email/password authentication.
-2. Guest mode with restricted research features.
-3. Persistent PostgreSQL data model for users, conversations, projects, notes, bookmarks and source records.
-4. Private document uploads with explicit consent before any source submission.
-5. Source submission/review queue with evidence and rights verification.
-6. Curated knowledge base, RAG and source-chain citations.
-7. Personal Oracle memory with explicit opt-in and deletion controls.
-8. Admin console and moderation/review tools.
+### Local backend
 
-See `docs/architecture.md` for the product and evidence principles.
+`backend/` contains an optional Express server for local development and smoke testing. The GitHub Pages production site does not require a separate Render deployment.
 
-## Run locally
+The backend includes request validation, security headers, CORS controls, rate limiting, and an optional language-provider abstraction.
 
-Requirements: Node.js 18+.
+## Repository layout
+
+```text
+.
+├── .github/workflows/   # CI, formatting, and GitHub Pages deployment
+├── assets/              # Browser modules and generated visual assets
+├── backend/             # Optional local Express server and smoke tests
+├── docs/                # Product and architecture documentation
+├── supabase/migrations/ # Database migration history tracked in Git
+└── index.html           # Main static frontend entry point
+```
+
+## Code style
+
+The repository uses two-space indentation, UTF-8 text, LF line endings, and Prettier 3.9.0 formatting conventions. Formatting is applied automatically by GitHub Actions.
+
+## Local development
+
+For the static frontend, open `index.html` through a local static server so module imports and browser storage behave normally.
+
+For the optional backend:
 
 ```bash
 cd backend
 npm install
-cp .env.example .env
-# Add OPENAI_API_KEY if using OpenAI.
+npm run check
+npm run smoke
 npm start
 ```
 
-Open `http://localhost:3000`.
-
-The Oracle is a research assistant, not an authority or substitute for qualified teachers, translators or academic sources. Important historical claims should be checked against primary texts and reputable scholarship.
+The Oracle is a research assistant, not an authority or substitute for qualified teachers, translators, initiatory lineages, or academic sources. Important historical claims should be checked against specified primary texts and reputable scholarship.
