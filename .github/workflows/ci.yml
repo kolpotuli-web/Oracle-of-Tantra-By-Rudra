@@ -9,22 +9,28 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
+
       - name: Install backend dependencies
         working-directory: backend
         run: npm install
+
       - name: Syntax check backend
         working-directory: backend
         run: npm run check
+
       - name: Backend smoke test
         working-directory: backend
         run: npm run smoke
+
       - name: Syntax check browser modules
         run: |
           node --check assets/oracle-assets.js
@@ -44,44 +50,63 @@ jobs:
           node --check assets/oracle-workspace.js
           node --check assets/oracle-accessibility.js
           node --check assets/oracle-navigation.js
+
       - name: Validate frontend structure
+        shell: bash
         run: |
-          test -s index.html
-          test -s assets/oracle-assets.js
-          test -s assets/oracle-auth.js
-          test -s assets/oracle-data.js
-          test -s assets/oracle-sources.js
-          test -s assets/oracle-projects.js
-          test -s assets/oracle-bookmarks.js
-          test -s assets/oracle-conversations.js
-          test -s assets/oracle-admin.js
-          test -s assets/oracle-library.js
-          test -s assets/oracle-i18n.js
-          test -s assets/oracle-corpus.js
-          test -s assets/oracle-citations.js
-          test -s assets/oracle-ai-ux.js
-          test -s assets/oracle-text-records.js
-          test -s assets/oracle-workspace.js
-          test -s assets/oracle-accessibility.js
-          test -s assets/oracle-navigation.js
+          set -euo pipefail
+
+          required_files=(
+            index.html
+            assets/oracle-assets.js
+            assets/oracle-auth.js
+            assets/oracle-data.js
+            assets/oracle-sources.js
+            assets/oracle-projects.js
+            assets/oracle-bookmarks.js
+            assets/oracle-conversations.js
+            assets/oracle-admin.js
+            assets/oracle-library.js
+            assets/oracle-i18n.js
+            assets/oracle-corpus.js
+            assets/oracle-citations.js
+            assets/oracle-ai-ux.js
+            assets/oracle-text-records.js
+            assets/oracle-workspace.js
+            assets/oracle-accessibility.js
+            assets/oracle-navigation.js
+          )
+
+          for file in "${required_files[@]}"; do
+            test -s "$file"
+          done
+
           grep -q 'id="chat"' index.html
           grep -q '/api/chat' index.html
+
+          required_modules=(
+            oracle-data.js
+            oracle-sources.js
+            oracle-projects.js
+            oracle-bookmarks.js
+            oracle-conversations.js
+            oracle-admin.js
+            oracle-library.js
+            oracle-i18n.js
+            oracle-corpus.js
+            oracle-citations.js
+            oracle-ai-ux.js
+            oracle-text-records.js
+            oracle-workspace.js
+            oracle-accessibility.js
+            oracle-navigation.js
+          )
+
+          for module in "${required_modules[@]}"; do
+            grep -q "$module" assets/oracle-assets.js
+          done
+
           grep -q 'window.ORACLE_ASSETS' assets/oracle-assets.js
-          grep -q 'oracle-data.js' assets/oracle-assets.js
-          grep -q 'oracle-sources.js' assets/oracle-assets.js
-          grep -q 'oracle-projects.js' assets/oracle-assets.js
-          grep -q 'oracle-bookmarks.js' assets/oracle-assets.js
-          grep -q 'oracle-conversations.js' assets/oracle-assets.js
-          grep -q 'oracle-admin.js' assets/oracle-assets.js
-          grep -q 'oracle-library.js' assets/oracle-assets.js
-          grep -q 'oracle-i18n.js' assets/oracle-assets.js
-          grep -q 'oracle-corpus.js' assets/oracle-assets.js
-          grep -q 'oracle-citations.js' assets/oracle-assets.js
-          grep -q 'oracle-ai-ux.js' assets/oracle-assets.js
-          grep -q 'oracle-text-records.js' assets/oracle-assets.js
-          grep -q 'oracle-workspace.js' assets/oracle-assets.js
-          grep -q 'oracle-accessibility.js' assets/oracle-assets.js
-          grep -q 'oracle-navigation.js' assets/oracle-assets.js
           grep -q 'createClient' assets/oracle-auth.js
           grep -q 'source_submissions' assets/oracle-sources.js
           grep -q 'research_projects' assets/oracle-projects.js
@@ -103,4 +128,6 @@ jobs:
           grep -q 'aria-modal' assets/oracle-accessibility.js
           grep -q 'Escape' assets/oracle-accessibility.js
           grep -q 'pageBack' assets/oracle-navigation.js
-          grep -q 'e.target===el' assets/oracle-navigation.js
+          grep -Eq 'e\.target[[:space:]]*===[[:space:]]*el' assets/oracle-navigation.js
+          grep -q 'librarySearch' assets/oracle-library.js
+          grep -q 'libraryFormatFilters' assets/oracle-library.js
