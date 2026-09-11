@@ -22,7 +22,7 @@ const chatLimiter = rateLimit({ windowMs: 60 * 1000, limit: 20, standardHeaders:
   message: { error: 'Too many requests. Please wait a moment and try again.' } });
 
 const chatSchema = z.object({
-  language: z.enum(['en', 'bn']).default('en'),
+  language: z.enum(['en', 'bn', 'hi', 'sa', 'zh', 'es']).default('en'),
   messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().trim().min(1).max(12000) })).max(20)
 });
 
@@ -30,24 +30,33 @@ const systemPrompt = `You are the Oracle of Tantra, a scholarly research assista
 
 Scope: Indian Tantra (Shaiva, Shakta, Vaishnava, Vamachara, Dakshinachara, Kaula, Sri Vidya, Aghora); Buddhist Tantra/Vajrayana; Daoist internal alchemy and East Asian esotericism when historically relevant; and African-diasporic/Brazilian traditions only when relevant.
 
+Every substantial answer should distinguish, where evidence allows:
+- Textual evidence
+- Historical scholarship
+- Traditional interpretation
+- Modern interpretation
+- AI synthesis
+
 Rules:
 1. Be scholarly, respectful, precise and non-sensational.
-2. Separate primary-source evidence, later commentary, modern scholarship and your own synthesis.
-3. Never invent scriptures, quotations, lineages, dates, practices or citations. If uncertain, say so.
-4. Do not present spiritual claims as scientifically proven facts.
-5. Explain that practices vary by lineage, region, initiation and historical period.
-6. For potentially dangerous practices, give historical/contextual information without encouraging unsafe physical acts.
-7. When naming a text, author, school or concept, provide enough context to distinguish it from similarly named traditions.
-8. Answer in the requested language and preserve Sanskrit/Bengali technical terms where useful.`;
+2. Never invent scriptures, quotations, lineages, dates, practices or citations. If uncertain, say so.
+3. Do not present spiritual claims as scientifically proven facts.
+4. Explain that practices vary by lineage, region, initiation and historical period.
+5. For potentially dangerous practices, give historical/contextual information without encouraging unsafe physical acts.
+6. When naming a text, author, school or concept, provide enough context to distinguish it from similarly named traditions.
+7. Answer in the requested language and preserve Sanskrit/Bengali technical terms where useful.
+8. If sources are not available to the system, say that you cannot verify them instead of fabricating citations.
+
+The requested language codes are: en=English, bn=Bengali, hi=Hindi, sa=Sanskrit, zh=Mandarin Chinese, es=Spanish.`;
 
 const openai = process.env.OPENAI_API_KEY ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
 
+const languageNames = { en: 'English', bn: 'scholarly Bengali', hi: 'scholarly Hindi', sa: 'Sanskrit', zh: 'Mandarin Chinese', es: 'Spanish' };
+
 async function askOpenAI(messages, language) {
-  const languageInstruction = language === 'bn'
-    ? 'Respond entirely in scholarly Bengali. Sanskrit and technical terms may remain in standard transliteration with Bengali explanation.'
-    : 'Respond entirely in English.';
+  const languageInstruction = `Respond entirely in ${languageNames[language] || 'English'}.`;
   const response = await openai.chat.completions.create({
-    model: process.env.OPENAI_MODEL || 'gpt-5.6-mini',
+    model: process.env.OPENAI_MODEL || 'gpt-5.6-luna',
     temperature: 0.35,
     messages: [{ role: 'system', content: `${systemPrompt}\n\n${languageInstruction}` }, ...messages]
   });
@@ -55,7 +64,7 @@ async function askOpenAI(messages, language) {
 }
 
 async function askPollinations(messages, language) {
-  const languageInstruction = language === 'bn' ? '[MANDATORY: Answer entirely in scholarly Bengali.]' : '[MANDATORY: Answer entirely in English.]';
+  const languageInstruction = `[MANDATORY: Answer entirely in ${languageNames[language] || 'English'}.]`;
   const response = await fetch(process.env.POLLINATIONS_URL || 'https://text.pollinations.ai/', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: process.env.POLLINATIONS_MODEL || 'openai', messages: [{ role: 'system', content: systemPrompt }, ...messages, { role: 'user', content: languageInstruction }] })
@@ -79,7 +88,6 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
   }
 });
 
-// One-command local deployment: the Node server also serves the frontend.
 app.use(express.static(path.resolve(__dirname, '..')));
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api/')) return next();
