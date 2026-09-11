@@ -86,3 +86,10 @@ jobs:
           grep -q 'research_projects' assets/oracle-workspace.js
           grep -q 'bookmarks' assets/oracle-workspace.js
           grep -q 'conversations' assets/oracle-workspace.js
+          grep -q 'oracleLanguagePicker' assets/oracle-i18n.js
+          grep -q "LANGUAGE_NAMES" assets/oracle-i18n.js
+          grep -q "bn:" assets/oracle-i18n.js
+          grep -q "hi:" assets/oracle-i18n.js
+          grep -q "sa:" assets/oracle-i18n.js
+          grep -q "zh:" assets/oracle-i18n.js
+          grep -q "es:" assets/oracle-i18n.js
