@@ -30,6 +30,8 @@ jobs:
           node --check assets/oracle-sources.js
           node --check assets/oracle-projects.js
           node --check assets/oracle-bookmarks.js
+          node --check assets/oracle-conversations.js
+          node --check assets/oracle-admin.js
           node --check assets/oracle-ai-ux.js
       - name: Validate frontend structure
         run: |
@@ -40,6 +42,8 @@ jobs:
           test -s assets/oracle-sources.js
           test -s assets/oracle-projects.js
           test -s assets/oracle-bookmarks.js
+          test -s assets/oracle-conversations.js
+          test -s assets/oracle-admin.js
           test -s assets/oracle-ai-ux.js
           grep -q 'id="chat"' index.html
           grep -q '/api/chat' index.html
@@ -48,8 +52,12 @@ jobs:
           grep -q 'oracle-sources.js' assets/oracle-assets.js
           grep -q 'oracle-projects.js' assets/oracle-assets.js
           grep -q 'oracle-bookmarks.js' assets/oracle-assets.js
+          grep -q 'oracle-conversations.js' assets/oracle-assets.js
+          grep -q 'oracle-admin.js' assets/oracle-assets.js
           grep -q 'oracle-ai-ux.js' assets/oracle-assets.js
           grep -q 'createClient' assets/oracle-auth.js
           grep -q 'source_submissions' assets/oracle-sources.js
           grep -q 'research_projects' assets/oracle-projects.js
           grep -q 'bookmarks' assets/oracle-bookmarks.js
+          grep -q 'conversations' assets/oracle-conversations.js
+          grep -q 'is_admin' assets/oracle-admin.js
