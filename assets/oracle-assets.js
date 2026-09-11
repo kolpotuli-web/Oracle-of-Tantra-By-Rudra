@@ -46,14 +46,14 @@ window.ORACLE_ASSETS = Object.freeze({
   addEventListener('DOMContentLoaded', syncChatState, { once:true });
 })();
 
-/* Load persistent research, authentication, source registry, projects, and bookmarks. */
+/* Load persistent research, authentication, source registry, projects, bookmarks, and AI UX diagnostics. */
 addEventListener('DOMContentLoaded', () => {
-  const modules = ['assets/oracle-data.js','assets/oracle-auth.js','assets/oracle-sources.js','assets/oracle-projects.js','assets/oracle-bookmarks.js'];
+  const modules = ['assets/oracle-data.js','assets/oracle-auth.js','assets/oracle-sources.js','assets/oracle-projects.js','assets/oracle-bookmarks.js','assets/oracle-ai-ux.js'];
   for (const src of modules) {
     if (document.querySelector(`script[src="${src}"]`)) continue;
     const script = document.createElement('script');
     script.type = 'module';
-    script.src = src;
+    script.src = `${src}?v=3`;
     document.body.appendChild(script);
   }
 }, { once:true });
