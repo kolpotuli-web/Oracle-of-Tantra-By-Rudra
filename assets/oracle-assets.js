@@ -46,19 +46,14 @@ window.ORACLE_ASSETS = Object.freeze({
   addEventListener('DOMContentLoaded', syncChatState, { once:true });
 })();
 
-/* Load persistent research data before the authentication module. */
+/* Load persistent research, authentication, and source registry modules after the document exists. */
 addEventListener('DOMContentLoaded', () => {
-  if (!document.querySelector('script[src="assets/oracle-data.js"]')) {
-    const dataScript = document.createElement('script');
-    dataScript.type = 'module';
-    dataScript.src = 'assets/oracle-data.js';
-    document.body.appendChild(dataScript);
-  }
-
-  if (!document.querySelector('script[src="assets/oracle-auth.js"]')) {
-    const authScript = document.createElement('script');
-    authScript.type = 'module';
-    authScript.src = 'assets/oracle-auth.js';
-    document.body.appendChild(authScript);
+  const modules = ['assets/oracle-data.js','assets/oracle-auth.js','assets/oracle-sources.js'];
+  for (const src of modules) {
+    if (document.querySelector(`script[src="${src}"]`)) continue;
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = src;
+    document.body.appendChild(script);
   }
 }, { once:true });
