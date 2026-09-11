@@ -5,6 +5,7 @@ const SUPABASE_KEY = 'sb_publishable_ryjVjpVSMXv_HSbDUEsTZA_iZMc_w2G';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const localNotes = () => JSON.parse(localStorage.getItem('oracleNotes') || '[]');
+const noteKey = n => `${n.title || ''}\u241f${n.body || ''}\u241f${n.time || ''}`;
 let activeConversationId = null;
 let syncTimer = null;
 
@@ -35,9 +36,15 @@ async function saveMessage(role, content, firstUserMessage = '') {
 async function syncNotes() {
   const user = await currentUser();
   if (!user) return;
-  const notes = localNotes();
-  if (!notes.length) return;
-  const rows = notes.map(n => ({
+  const local = localNotes();
+  if (!local.length) return;
+
+  const { data: remote } = await supabase.from('notes').select('title,body,created_at').order('created_at', { ascending:false }).limit(100);
+  const remoteKeys = new Set((remote || []).map(n => noteKey({ title:n.title, body:n.body, time:Date.parse(n.created_at) })));
+  const pending = local.filter(n => !remoteKeys.has(noteKey(n)));
+  if (!pending.length) return;
+
+  const rows = pending.map(n => ({
     user_id: user.id,
     title: String(n.title || 'Untitled').slice(0, 180),
     body: String(n.body || '').slice(0, 20000),
@@ -45,7 +52,7 @@ async function syncNotes() {
     updated_at: new Date().toISOString()
   }));
   const { error } = await supabase.from('notes').insert(rows);
-  if (!error) localStorage.removeItem('oracleNotes');
+  if (!error && pending.length === local.length) localStorage.removeItem('oracleNotes');
 }
 
 async function restoreNotes() {
@@ -94,14 +101,7 @@ window.oracleData = Object.freeze({
   resetConversation: () => { activeConversationId = null; }
 });
 
-supabase.auth.onAuthStateChange(async (_event, session) => {
-  if (session?.user) {
-    await syncNotes();
-    await restoreNotes();
-    showConnectionState();
-  }
-});
-
+// Authentication itself is managed by oracle-auth.js; this module avoids a second note-restore loop.
 syncTimer = setInterval(() => { syncNotes().catch(() => {}); }, 15000);
 addEventListener('beforeunload', () => clearInterval(syncTimer));
 addEventListener('DOMContentLoaded', () => setTimeout(showConnectionState, 400));
