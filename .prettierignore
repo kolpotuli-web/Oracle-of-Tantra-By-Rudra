@@ -1,5 +1,4 @@
 .git/
-.github/
 assets/generated/
 backend/node_modules/
 *.png
