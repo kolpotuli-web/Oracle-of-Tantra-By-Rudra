@@ -1,15 +1,40 @@
-# Oracle of Tantra — By Rudra
+# The Oracle of Tantra
 
-A research-oriented conversational interface for exploring Tantra and related esoteric traditions.
+A living research library for Tantra and related esoteric traditions.
 
-## Architecture
+## Current build
 
-- `index.html` — responsive frontend, bilingual English/Bengali UI, local conversation persistence and voice input.
-- `backend/server.js` — Express API, security headers, CORS, validation, rate limiting and AI provider abstraction.
-- `backend/.env.example` — environment configuration template.
-- `render.yaml` — deployment configuration for Render.
+The project now has an atmospheric Bengali folk-art / patachitra-inspired entrance and a calm researcher shell designed around long-form reading. The entrance is built with original HTML/CSS/SVG-style primitives rather than a stock background video, so it can be animated and interactive without depending on a large media asset.
 
-The browser **never receives the OpenAI API key**. It talks to `/api/chat`, and the server talks to the model provider.
+### Frontend experience
+
+- Cinematic illustrated entrance with subtle motion, lamps, moon, shelves, manuscript and an Oracle figure.
+- Skip/reduced-motion-friendly entrance path.
+- Research workspace with a quiet animated library background.
+- Kindle-inspired reading direction and planned Focus Mode.
+- Clickable shelf books with source information panels.
+- Oracle / Researcher mode switch foundation.
+- Search, projects, sources, notes, bookmarks, traditions and texts navigation shell.
+
+### Backend
+
+- `backend/server.js` — Express API, security headers, CORS, validation, rate limiting and provider abstraction.
+- Six-language API contract: English, Bengali, Hindi, Sanskrit, Mandarin Chinese and Spanish.
+- OpenAI default model is `gpt-5.6-luna`; Pollinations remains an optional fallback.
+- The browser never receives the OpenAI API key.
+
+### Planned next layers
+
+1. Google + email/password authentication.
+2. Guest mode with restricted research features.
+3. Persistent PostgreSQL data model for users, conversations, projects, notes, bookmarks and source records.
+4. Private document uploads with explicit consent before any source submission.
+5. Source submission/review queue with evidence and rights verification.
+6. Curated knowledge base, RAG and source-chain citations.
+7. Personal Oracle memory with explicit opt-in and deletion controls.
+8. Admin console and moderation/review tools.
+
+See `docs/architecture.md` for the product and evidence principles.
 
 ## Run locally
 
@@ -19,16 +44,10 @@ Requirements: Node.js 18+.
 cd backend
 npm install
 cp .env.example .env
-# Put your OPENAI_API_KEY in .env for the preferred provider.
+# Add OPENAI_API_KEY if using OpenAI.
 npm start
 ```
 
-Then open `http://localhost:3000`.
+Open `http://localhost:3000`.
 
-If `OPENAI_API_KEY` is empty, the backend uses the configured Pollinations fallback provider.
-
-## Production notes
-
-Before a public launch, add a persistent database/auth layer if accounts or saved research sessions are needed, and consider a managed secret store, observability, stricter per-user quotas, and a curated source/RAG layer for historical claims.
-
-The Oracle is an AI research assistant, not an authority or substitute for qualified teachers, translators or academic sources. Important historical claims should be verified against primary texts and reputable scholarship.
+The Oracle is a research assistant, not an authority or substitute for qualified teachers, translators or academic sources. Important historical claims should be checked against primary texts and reputable scholarship.
