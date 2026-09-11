@@ -8,13 +8,14 @@ const supabase = createClient(
 const esc = (s) =>
   String(s ?? '').replace(
     /[&<>'\"]/g,
-    (c) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '\"': '&quot;',
-    })[c],
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '\"': '&quot;',
+      })[c],
   );
 
 let texts = [];
@@ -215,15 +216,12 @@ function openItem(item) {
 
   const view = ensureRecordView();
 
-  document.getElementById('libraryRecordTitle').textContent =
-    item.title || 'Untitled source';
+  document.getElementById('libraryRecordTitle').textContent = item.title || 'Untitled source';
 
   document.getElementById('libraryRecordMeta').textContent = [
     item.author,
     item.item_type,
-    item.publication_date
-      ? new Date(item.publication_date).toLocaleDateString()
-      : null,
+    item.publication_date ? new Date(item.publication_date).toLocaleDateString() : null,
   ]
     .filter(Boolean)
     .join(' · ');
@@ -238,10 +236,7 @@ function openItem(item) {
     ['Curator note', item.review_note],
   ]
     .filter(([, value]) => value)
-    .map(
-      ([key, value]) =>
-        `<div class="row"><h3>${esc(key)}</h3><p>${esc(value)}</p></div>`,
-    )
+    .map(([key, value]) => `<div class="row"><h3>${esc(key)}</h3><p>${esc(value)}</p></div>`)
     .join('');
 
   const actions = document.getElementById('libraryRecordActions');
@@ -258,9 +253,8 @@ function openItem(item) {
   }
 
   if (item.storage_path) {
-    const url = supabase.storage
-      .from('oracle-library')
-      .getPublicUrl(item.storage_path).data.publicUrl;
+    const url = supabase.storage.from('oracle-library').getPublicUrl(item.storage_path)
+      .data.publicUrl;
 
     if (url) {
       actions.insertAdjacentHTML(
@@ -302,9 +296,7 @@ function renderTexts(filter = 'All') {
 
   grid.querySelectorAll('[data-text-slug]').forEach((button) => {
     button.onclick = () => {
-      window.oracleTextPages?.open(
-        texts.find((text) => text.slug === button.dataset.textSlug),
-      );
+      window.oracleTextPages?.open(texts.find((text) => text.slug === button.dataset.textSlug));
     };
   });
 }
@@ -313,8 +305,7 @@ function getFilteredItems() {
   const query = itemQuery.trim().toLowerCase();
 
   return items.filter((item) => {
-    const matchesType =
-      activeItemFilter === 'all' || item.item_type === activeItemFilter;
+    const matchesType = activeItemFilter === 'all' || item.item_type === activeItemFilter;
 
     if (!matchesType) return false;
     if (!query) return true;
@@ -357,17 +348,13 @@ function renderLibraryItems() {
                   ${esc(
                     [
                       item.author,
-                      item.publication_date
-                        ? new Date(item.publication_date).getFullYear()
-                        : null,
+                      item.publication_date ? new Date(item.publication_date).getFullYear() : null,
                     ]
                       .filter(Boolean)
                       .join(' · '),
                   )}
                 </div>
-                <p class="desc">${esc(
-                  item.description || 'No description has been added yet.',
-                )}</p>
+                <p class="desc">${esc(item.description || 'No description has been added yet.')}</p>
                 <div>
                   ${(item.tags || [])
                     .slice(0, 5)
@@ -394,8 +381,7 @@ function renderLibraryItems() {
     : '<p class="libraryEmpty">No catalogue items match this search or format.</p>';
 
   host.querySelectorAll('[data-library-id]').forEach((button) => {
-    button.onclick = () =>
-      openItem(items.find((item) => item.id === button.dataset.libraryId));
+    button.onclick = () => openItem(items.find((item) => item.id === button.dataset.libraryId));
   });
 }
 
@@ -420,9 +406,7 @@ function renderFilters() {
 
   box.querySelectorAll('[data-text-filter]').forEach((button) => {
     button.onclick = () => {
-      box
-        .querySelectorAll('button')
-        .forEach((node) => node.classList.remove('active'));
+      box.querySelectorAll('button').forEach((node) => node.classList.remove('active'));
       button.classList.add('active');
       activeTextFilter = button.dataset.textFilter || 'All';
       renderTexts(activeTextFilter);
@@ -487,9 +471,7 @@ function ensureSections() {
 
   filterBox.querySelectorAll('[data-item-filter]').forEach((button) => {
     button.onclick = () => {
-      filterBox
-        .querySelectorAll('button')
-        .forEach((node) => node.classList.remove('active'));
+      filterBox.querySelectorAll('button').forEach((node) => node.classList.remove('active'));
       button.classList.add('active');
       activeItemFilter = button.dataset.itemFilter || 'all';
       renderLibraryItems();
@@ -534,10 +516,7 @@ function install() {
   ensureSections();
 
   document.addEventListener('click', (event) => {
-    if (
-      event.target.closest('[data-view="library"]') ||
-      event.target.closest('#shelfHit')
-    ) {
+    if (event.target.closest('[data-view="library"]') || event.target.closest('#shelfHit')) {
       setTimeout(() => {
         ensureSections();
         load();
