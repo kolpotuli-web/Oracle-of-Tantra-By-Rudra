@@ -1,13 +1,13 @@
 /* The Oracle of Tantra — generated visual asset registry. */
 window.ORACLE_ASSETS = Object.freeze({
-  /* Clean text-free master from the supplied moonlit manuscript reference. */
-  masterDesktop: 'https://cdn.creativeclaw.co/u/486ee905/images/42ff144d-e663-4530-b684-70ace2ad0067.png',
-  /* Dedicated male-oracle mobile artwork can replace this when Creative Claw credits are available. */
-  masterMobile: 'https://cdn.creativeclaw.co/u/486ee905/images/42ff144d-e663-4530-b684-70ace2ad0067.png',
-  oracle: 'https://cdn.creativeclaw.co/u/486ee905/images/5fb0c5ee-0cc5-4b28-9544-dd6491aaac49.png',
-  bookshelf: 'https://cdn.creativeclaw.co/u/486ee905/images/b4f990dc-08ad-42b1-a2b2-e4720ff21462.png',
-  centralArch: 'https://cdn.creativeclaw.co/u/486ee905/images/73bf3975-c1ec-4596-968c-afbb138f2fbe.png',
-  objectsSprite: 'https://cdn.creativeclaw.co/u/486ee905/images/75381525-d868-456f-ae32-5ee1df2fdee0.png',
+  /* Final clean desktop artwork: male Oracle, moon, river, books, black cat, no interface. */
+  masterDesktop: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
+  /* Recomposed mobile artwork with the same male Oracle and black cat. */
+  masterMobile: 'https://cdn.creativeclaw.co/u/486ee905/images/ca527432-87f0-46a9-b085-1a6d2c951dc9.png',
+  oracle: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
+  bookshelf: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
+  centralArch: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
+  objectsSprite: 'https://cdn.creativeclaw.co/u/486ee905/images/ad8ced9c-e169-46a4-bedc-f96275ca9f32.png',
   local: {
     masterDesktop: 'assets/generated/oracle-tantra-master-desktop.png',
     masterMobile: 'assets/generated/oracle-tantra-master-mobile.png',
